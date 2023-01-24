@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using ShopManagement.Application.Contracts.Product;
 using ShopManagement.Application.Contracts.ProductPicture;
 using System.Collections.Generic;
+using ShopManagement.Application;
 
 namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures
 {
@@ -17,9 +18,9 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures
 
         private readonly IProductApplication _productApplication;
         private readonly IProductPictureApplication _productPictureApplication;
-        public IndexModel(IProductApplication ProductApplication, IProductPictureApplication productPictureApplication)
+        public IndexModel(IProductApplication productApplication, IProductPictureApplication productPictureApplication)
         {
-            _productApplication = ProductApplication;
+            _productApplication = productApplication;
             _productPictureApplication = productPictureApplication;
         }
 

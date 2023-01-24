@@ -12,6 +12,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AccountManagement.Configuration\AccountManagement.Configuration.csproj" />
+    <ProjectReference Include="..\BlogManagement.Infrastructure.Configuration\BlogManagement.Infrastructure.Configuration.csproj" />
+    <ProjectReference Include="..\CommentManagement.Application.Contracts\CommentManagement.Application.Contracts.csproj" />
+    <ProjectReference Include="..\CommentManagement.Configuration\CommentManagement.Infrastructure.Configuration.csproj" />
+    <ProjectReference Include="..\DiscountManagement.Configureation\DiscountManagement.Configureation.csproj" />
+    <ProjectReference Include="..\InventoryManagement.Infratructure.Configuration\InventoryManagement.Infratructure.Configuration.csproj" />
     <ProjectReference Include="..\ShopManagement.Configuration\ShopManagement.Configuration.csproj" />
   </ItemGroup>
 
@@ -21,6 +27,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="Nancy" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -185,9 +192,21 @@
     <None Include="wwwroot\AdminTheme\assets\toggles\toggles.min.js" />
     <None Include="wwwroot\AdminTheme\fonts\glyphicons-halflings-regular.svg" />
     <None Include="wwwroot\AdminTheme\fonts\glyphicons-halflings-regular.woff2" />
-    <None Include="wwwroot\AdminTheme\fonts\IranianSans.svg" />
-    <None Include="wwwroot\AdminTheme\fonts\IranianSans.woff2" />
     <None Include="wwwroot\AdminTheme\fonts\Material-Design-Iconic-Font.svg" />
+    <None Include="wwwroot\Theme\assets\fonts\fontawesome-webfont3e6e.svg" />
+    <None Include="wwwroot\Theme\assets\fonts\fontawesome-webfont3e6e.woff2" />
+    <None Include="wwwroot\Theme\assets\fonts\ionicons28b5.svg" />
+    <None Include="wwwroot\Theme\assets\fonts\IranianSans.svg" />
+    <None Include="wwwroot\Theme\assets\fonts\IranianSans.woff2" />
+    <None Include="wwwroot\Theme\assets\js\active.js" />
+    <None Include="wwwroot\Theme\assets\js\ajax-mail.js" />
+    <None Include="wwwroot\Theme\assets\js\custom.js" />
+    <None Include="wwwroot\Theme\assets\js\plugins.js" />
+    <None Include="wwwroot\Theme\assets\js\vendors.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\ProductPictures\slides\" />
   </ItemGroup>
 
 </Project>

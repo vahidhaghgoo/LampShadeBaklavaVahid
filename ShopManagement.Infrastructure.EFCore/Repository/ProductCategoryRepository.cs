@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using _0_Framework.Application;
 using _0_Framework.Infrastructure;
 using ShopManagement.Application.Contracts.ProductCategory;
 using ShopManagement.Domain.ProductCategoryAgg;
@@ -27,7 +28,6 @@ namespace ShopManagement.Infrastructure.EFCore.Repository
                     Name = x.Name,
                     Keywords = x.Keywords,
                     MetaDescription = x.MetaDescription,
-                    Picture = x.Picture,
                     PictureAlt = x.PictureAlt,
                     PictureTitle = x.PictureTitle,
                     Slug = x.Slug
@@ -35,7 +35,12 @@ namespace ShopManagement.Infrastructure.EFCore.Repository
             ).FirstOrDefault(x => x.Id == id);
         }
 
-        public List<ProductCategoryViewModel> GetProductCategories()
+       public string GetSlugById(long id)
+       {
+           return _context.ProductCategories.Select(x => new { x.Id, x.Slug }).FirstOrDefault(x => x.Id == id).Slug;
+       }
+
+       public List<ProductCategoryViewModel> GetProductCategories()
         {
             return _context.ProductCategories.Select(x => new ProductCategoryViewModel
             {
@@ -51,7 +56,7 @@ namespace ShopManagement.Infrastructure.EFCore.Repository
                 Id = x.Id,
                 Picture = x.Picture,
                 Name = x.Name,
-                CreationDate = x.CreationDate.ToString()
+                CreationDate = x.CreationDate.ToFarsi()
             });
             if (!string.IsNullOrWhiteSpace(searchModel.Name))
                 query = query.Where(x => x.Name.Contains(searchModel.Name));
