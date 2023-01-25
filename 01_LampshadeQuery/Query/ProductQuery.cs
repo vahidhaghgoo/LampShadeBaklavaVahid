@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using _01_LampshadeQuery.Contracts.Comment;
+using CommentManagement.Domain.CommentAgg;
 using CommentManagement.Infrastructure.EFCore;
 using ShopManagement.Application.Contracts.Order;
 
@@ -97,15 +98,15 @@ namespace _01_LampshadeQuery.Query
             return product;
         }
 
-        //private static List<CommentQueryModel> MapComments(List<Comment> comments)
-        //{
-        //    return comments.Where(x => !x.IsCanceled).Where(x =>x.IsConfirmed).Select(x => new CommentQueryModel 
-        //    {
-        //        Id = x.Id,
-        //        Message = x.Message,
-        //        Name = x.Name
-        //    }).OrderByDescending(x => x.Id).ToList();
-        //}
+        private static List<CommentQueryModel> MapComments(List<Comment> comments)
+        {
+            return comments.Where(x => !x.IsCanceled).Where(x => x.IsConfirmed).Select(x => new CommentQueryModel
+            {
+                Id = x.Id,
+                Message = x.Message,
+                Name = x.Name
+            }).OrderByDescending(x => x.Id).ToList();
+        }
 
 
         private static List<ProductPictureQueryModel> MapProductPictures(List<ProductPicture> pictures)

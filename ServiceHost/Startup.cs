@@ -19,8 +19,10 @@ using CommentManagement.Infrastructure.Configuration;
 using ShopManagement.Configuration;
 using DiscountManagement.Configureation;
 using InventoryManagement.Infratructure.Configuration;
+using InventoryManagement.Presentation.Api;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+using ShopManagement.Presentation.Api;
 
 namespace ServiceHost
 {
@@ -91,7 +93,11 @@ namespace ServiceHost
                     options.Conventions.AuthorizeAreaFolder("Administration", "/Shop", "Shop");
                     options.Conventions.AuthorizeAreaFolder("Administration", "/Discounts", "Discount");
                     options.Conventions.AuthorizeAreaFolder("Administration", "/Accounts", "Account");
-                });
+                })
+                .AddApplicationPart(typeof(ProductController).Assembly)
+                .AddApplicationPart(typeof(InventoryController).Assembly)
+                .AddNewtonsoftJson();
+
 
 
         }
@@ -124,6 +130,7 @@ namespace ServiceHost
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapControllers();
                 endpoints.MapDefaultControllerRoute();
             });
         }
