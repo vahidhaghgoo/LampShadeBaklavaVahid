@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using _0_Framework.Application;
+﻿using _0_Framework.Application;
 using AccountManagement.Domain.AccountAgg;
 using AccountManagement.Application.Contracts.Account;
 using AccountManagement.Domain.RoleAgg;
@@ -43,6 +38,18 @@ namespace AccountManagement.Application
             return operation.Succedded();
         }
 
+        public AccountViewModel GetAccountBy(long id)
+        {
+            var account = _accountRepository.Get(id);
+            return new AccountViewModel()
+            {
+                Fullname = account.Fullname,
+                Mobile = account.Mobile,
+                Email = account.Email,
+                ProfilePhoto = account.ProfilePhoto
+            };
+        }
+
         public OperationResult Register(RegisterAccount command)
         {
             var operation = new OperationResult();
@@ -52,10 +59,13 @@ namespace AccountManagement.Application
 
             var password = _passwordHasher.Hash(command.Password);
             var path = $"profilePhotos";
-            var picturePath = _fileUploader.Upload(command.ProfilePhoto, path);
-            var account = new Account(command.Fullname, command.Username, password, command.Mobile, command.RoleId,
-                picturePath);
-            _accountRepository.Create(account);
+           
+                var picturePath = _fileUploader.Upload(command.ProfilePhoto, path);
+                var account = new Account(command.Fullname, command.Username, password, command.Mobile, command.RoleId,
+                    picturePath,command.Email);
+                _accountRepository.Create(account);
+       
+
             _accountRepository.SaveChanges();
             return operation.Succedded();
         }
@@ -74,8 +84,12 @@ namespace AccountManagement.Application
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
 
             var path = $"profilePhotos";
-            var picturePath = _fileUploader.Upload(command.ProfilePhoto, path);
-            account.Edit(command.Fullname, command.Username, command.Mobile, command.RoleId, picturePath);
+            if (command.ProfilePhoto != null)
+            {
+                var picturePath = _fileUploader.Upload(command.ProfilePhoto, path);
+                account.Edit(command.Fullname, command.Username, command.Mobile, command.RoleId, picturePath,command.Email);
+            }
+
             _accountRepository.SaveChanges();
             return operation.Succedded();
         }
@@ -92,7 +106,8 @@ namespace AccountManagement.Application
             if (account == null)
                 return operation.Failed(ApplicationMessages.WrongUserPass);
 
-            var result = _passwordHasher.Check(account.Password, command.Password); if (!result.Verified)
+            var result = _passwordHasher.Check(account.Password, command.Password); 
+            if (!result.Verified)
                 return operation.Failed(ApplicationMessages.WrongUserPass);
 
             var permissions = _roleRepository.Get(account.RoleId)
@@ -101,7 +116,7 @@ namespace AccountManagement.Application
                 .ToList();
 
             var authViewModel = new AuthViewModel(account.Id, account.RoleId, account.Fullname, account.Username,
-                permissions);
+                account.Mobile, account.ProfilePhoto, permissions);
 
             _authHelper.Signin(authViewModel);
             return operation.Succedded();

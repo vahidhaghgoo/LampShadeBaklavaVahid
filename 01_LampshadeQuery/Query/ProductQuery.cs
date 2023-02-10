@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application;
+using _01_LampshadeQuery.Contracts.Comment;
 using _01_LampshadeQuery.Contracts.Product;
 using DiscountManagement.Infrastructur.EFCore;
 using InventoryMangement.Infrastructure.EFCore;
@@ -8,10 +9,6 @@ using ShopManagement.Infrastructure.EFCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using _01_LampshadeQuery.Contracts.Comment;
-using CommentManagement.Domain.CommentAgg;
 using CommentManagement.Infrastructure.EFCore;
 using ShopManagement.Application.Contracts.Order;
 
@@ -23,11 +20,13 @@ namespace _01_LampshadeQuery.Query
         private readonly InventoryContext _inventoryContext;
         private readonly DiscountContext _discountContext;
         private readonly CommentContext _commentContext;
-        public ProductQuery(ShopContext context, InventoryContext inventoryContext, DiscountContext discountContext, CommentContext commentContext)
+
+        public ProductQuery(ShopContext context, InventoryContext inventoryContext,
+            DiscountContext discountContext, CommentContext commentContext)
         {
             _context = context;
-            _inventoryContext = inventoryContext;
             _discountContext = discountContext;
+            _inventoryContext = inventoryContext;
             _commentContext = commentContext;
         }
 
@@ -98,17 +97,6 @@ namespace _01_LampshadeQuery.Query
             return product;
         }
 
-        private static List<CommentQueryModel> MapComments(List<Comment> comments)
-        {
-            return comments.Where(x => !x.IsCanceled).Where(x => x.IsConfirmed).Select(x => new CommentQueryModel
-            {
-                Id = x.Id,
-                Message = x.Message,
-                Name = x.Name
-            }).OrderByDescending(x => x.Id).ToList();
-        }
-
-
         private static List<ProductPictureQueryModel> MapProductPictures(List<ProductPicture> pictures)
         {
             return pictures.Select(x => new ProductPictureQueryModel
@@ -121,29 +109,26 @@ namespace _01_LampshadeQuery.Query
             }).Where(x => !x.IsRemoved).ToList();
         }
 
-
         public List<ProductQueryModel> GetLatestArrivals()
         {
-            var inventory = _inventoryContext.Inventory.Select(x =>
-               new { x.ProductId, x.UnitPrice }).ToList();
+            var inventory = _inventoryContext.Inventory.Select(x => new { x.ProductId, x.UnitPrice }).ToList();
             var discounts = _discountContext.CustomerDiscounts
                 .Where(x => x.StartDate < DateTime.Now && x.EndDate > DateTime.Now)
                 .Select(x => new { x.DiscountRate, x.ProductId }).ToList();
-
-            var products = _context.Products.Include(x => x.Category).Select(product => new ProductQueryModel
-            {
-                Id = product.Id,
-                Category = product.Category.Name,
-                Name = product.Name,
-                Picture = product.Picture,
-                PictureAlt = product.PictureAlt,
-                PictureTitle = product.PictureTitle,
-                Slug = product.Slug
-            }).OrderByDescending(x => x.Id).Take(6).ToList();
+            var products = _context.Products.Include(x => x.Category)
+                .Select(product => new ProductQueryModel
+                {
+                    Id = product.Id,
+                    Category = product.Category.Name,
+                    Name = product.Name,
+                    Picture = product.Picture,
+                    PictureAlt = product.PictureAlt,
+                    PictureTitle = product.PictureTitle,
+                    Slug = product.Slug
+                }).AsNoTracking().OrderByDescending(x => x.Id).Take(6).ToList();
 
             foreach (var product in products)
             {
-
                 var productInventory = inventory.FirstOrDefault(x => x.ProductId == product.Id);
                 if (productInventory != null)
                 {
@@ -160,15 +145,14 @@ namespace _01_LampshadeQuery.Query
                     }
                 }
             }
+
             return products;
         }
-
-
 
         public List<ProductQueryModel> Search(string value)
         {
             var inventory = _inventoryContext.Inventory.Select(x =>
-        new { x.ProductId, x.UnitPrice }).ToList();
+                new { x.ProductId, x.UnitPrice }).ToList();
             var discounts = _discountContext.CustomerDiscounts
                 .Where(x => x.StartDate < DateTime.Now && x.EndDate > DateTime.Now)
                 .Select(x => new { x.DiscountRate, x.ProductId, x.EndDate }).ToList();
@@ -192,7 +176,6 @@ namespace _01_LampshadeQuery.Query
                 query = query.Where(x => x.Name.Contains(value) || x.ShortDescription.Contains(value));
 
             var products = query.OrderByDescending(x => x.Id).ToList();
-            
 
             foreach (var product in products)
             {
@@ -221,7 +204,7 @@ namespace _01_LampshadeQuery.Query
             var inventory = _inventoryContext.Inventory.ToList();
 
             foreach (var cartItem in cartItems.Where(cartItem =>
-                         inventory.Any(x => x.ProductId == cartItem.Id && x.InStock)))
+                inventory.Any(x => x.ProductId == cartItem.Id && x.InStock)))
             {
                 var itemInventory = inventory.Find(x => x.ProductId == cartItem.Id);
                 cartItem.IsInStock = itemInventory.CalculateCurrentCount() >= cartItem.Count;
@@ -231,4 +214,3 @@ namespace _01_LampshadeQuery.Query
         }
     }
 }
-

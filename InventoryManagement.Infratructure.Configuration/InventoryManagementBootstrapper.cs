@@ -1,18 +1,16 @@
-﻿
-using _0_Framework.Infrastructure;
+﻿using _0_Framework.Infrastructure;
 using _01_LampshadeQuery.Contracts.Inventory;
 using _01_LampshadeQuery.Query;
 using InventoryManagement.Application;
 using InventoryManagement.Application.Contract.Inventory;
 using InventoryManagement.Domain.InventoryAgg;
-using InventoryManagement.Infrastructure.EFCore;
+using InventoryManagement.Infrastructure.Configuration.Permissions;
 using InventoryManagement.Infrastructure.EFCore.Repository;
-using InventoryManagement.Infratructure.Configuration.Permissions;
 using InventoryMangement.Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace InventoryManagement.Infratructure.Configuration
+namespace InventoryManagement.Infrastructure.Configuration
 {
     public class InventoryManagementBootstrapper
     {
@@ -22,6 +20,7 @@ namespace InventoryManagement.Infratructure.Configuration
             services.AddTransient<IInventoryApplication, InventoryApplication>();
             services.AddTransient<IPermissionExposer, InventoryPermissionExposer>();
             services.AddTransient<IInventoryQuery, InventoryQuery>();
+
 
             services.AddDbContext<InventoryContext>(x => x.UseSqlServer(connectionString));
         }

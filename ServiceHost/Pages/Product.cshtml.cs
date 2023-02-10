@@ -26,7 +26,7 @@ namespace ServiceHost.Pages
         public IActionResult OnPost(AddComment command, string productSlug)
         {
             command.Type = CommentType.Product;
-            var result = _commentApplication.Add(command);
+            _commentApplication.Add(command);
             return RedirectToPage("/Product", new { Id = productSlug });
         }
     }

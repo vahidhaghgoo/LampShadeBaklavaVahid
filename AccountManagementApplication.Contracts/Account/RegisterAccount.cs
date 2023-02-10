@@ -23,11 +23,9 @@ namespace AccountManagement.Application.Contracts.Account
 
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
         public string Mobile { get; set; }
-
-     
+        public string? Email { get; set; }
         public long RoleId { get; set; }
-
-        public IFormFile ProfilePhoto { get; set; }
+        public IFormFile? ProfilePhoto { get; set; }
         public List<RoleViewModel> Roles { get; set; }
     }
 }

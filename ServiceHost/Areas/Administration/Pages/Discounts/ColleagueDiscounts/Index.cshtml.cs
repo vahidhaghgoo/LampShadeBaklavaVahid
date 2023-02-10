@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using _0_Framework.Infrastructure;
 using DiscountManagement.Application.Contracts.ColleagueDiscount;
 using DiscountManagement.Application.Contracts.CoustomerDiscount;
+using DiscountManagement.Configuration.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -14,7 +15,7 @@ using ShopManagement.Application.Contracts.ProductCategory;
 
 namespace ServiceHost.Areas.Administration.Pages.Discounts.ColleagueDiscounts
 {
-    //[Authorize(Roles = Roles.Administator)]
+    [Authorize(Roles = Roles.Administrator)]
     public class IndexModel : PageModel
     {
         [TempData]
@@ -26,17 +27,20 @@ namespace ServiceHost.Areas.Administration.Pages.Discounts.ColleagueDiscounts
         private readonly IProductApplication _productApplication;
         private readonly IColleagueDiscountApplication _colleagueDiscountApplication;
 
-        public IndexModel(IProductApplication ProductApplication, IColleagueDiscountApplication colleagueDiscountApplication)
+        public IndexModel(IProductApplication productApplication, IColleagueDiscountApplication colleagueDiscountApplication)
         {
-            _productApplication = ProductApplication;
+            _productApplication = productApplication;
             _colleagueDiscountApplication = colleagueDiscountApplication;
         }
+
+        [NeedsPermission(DiscountPermissions.ListColleagueDiscounts)]
 
         public void OnGet(ColleagueDiscountSearchModel searchModel)
         {
             Products = new SelectList(_productApplication.GetProducts(), "Id", "Name");
             ColleagueDiscounts = _colleagueDiscountApplication.Search(searchModel);
         }
+
 
         public IActionResult OnGetCreate()
         {
@@ -46,6 +50,8 @@ namespace ServiceHost.Areas.Administration.Pages.Discounts.ColleagueDiscounts
             };
             return Partial("./Create", command);
         }
+
+        [NeedsPermission(DiscountPermissions.CreateColleagueDiscounts)]
 
         public JsonResult OnPostCreate(DefineColleagueDiscount command)
         {
@@ -60,17 +66,23 @@ namespace ServiceHost.Areas.Administration.Pages.Discounts.ColleagueDiscounts
             return Partial("Edit", colleagueDiscount);
         }
 
+        [NeedsPermission(DiscountPermissions.EditColleagueDiscounts)]
+
         public JsonResult OnPostEdit(EditColleagueDiscount command)
         {
             var result = _colleagueDiscountApplication.Edit(command);
             return new JsonResult(result);
         }
 
+        [NeedsPermission(DiscountPermissions.RemoveColleagueDiscounts)]
+
         public IActionResult OnGetRemove(long id)
         {
             _colleagueDiscountApplication.Remove(id);
             return RedirectToPage("./Index");
         }
+
+        [NeedsPermission(DiscountPermissions.RestoreColleagueDiscounts)]
 
         public IActionResult OnGetRestore(long id)
         {

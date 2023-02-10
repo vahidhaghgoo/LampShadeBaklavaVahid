@@ -111,10 +111,14 @@
     border: none;
 }
 .bx-shadow {
+    -webkit-box-shadow: 0px 1px 2px 0px #000000;
     -webkit-box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.1);
-  -moz-box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.1);
-  box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 1px 2px 0px #000000;
+    -moz-box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px 1px 2px 0px #000000;
+    box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.1);
 }
+
 .mx-box {
     max-height: 380px;
     min-height: 380px;
@@ -124,8 +128,8 @@
   width: 32px;
 }
 .thumb-md {
-  height: 48px;
-  width: 48px;
+    height: 55px;
+  width: 55px;
 }
 .thumb-lg {
   height: 88px;
@@ -154,16 +158,17 @@
     text-align: center;
     vertical-align: middle;
     -webkit-transition: font-size .2s;
-    transition: font-size .2s;
     -webkit-transition: all 0.2s;
-   transition: all 0.2s;
+    transition: font-size .2s;
+    transition: all 0.2s;
 }
+
 .ionicon-list i {
     font-size: 16px;
 }
 .ionicon-list .col-md-3:hover i,
 .icon-list .col-md-3:hover i {
-    moz-transform: scale(2);
+    -moz-transform: scale(2);
     -webkit-transform: scale(2);
     -o-transform: scale(2);
     transform: scale(2);

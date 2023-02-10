@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using _0_Framework.Infrastructure;
 using AccountManagement.Application.Contracts.Role;
+using AccountManagement.Configuration.Permissions;
+using BlogManagement.Infrastructure.Configuration.Permissions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -50,6 +52,8 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Role
                 }
             }
         }
+
+        [NeedsPermission(AccountPermissions.EditRole)]
 
         public IActionResult OnPost(EditRole command)
         {

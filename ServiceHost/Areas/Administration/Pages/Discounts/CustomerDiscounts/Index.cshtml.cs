@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using _0_Framework.Infrastructure;
 using DiscountManagement.Application.Contracts.CoustomerDiscount;
+using DiscountManagement.Configuration.Permissions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -22,11 +24,13 @@ namespace ServiceHost.Areas.Administration.Pages.Discounts.CustomerDiscounts
         private readonly IProductApplication _productApplication;
         private readonly ICustomerDiscountApplication _customerDiscountApplication;
 
-        public IndexModel(IProductApplication ProductApplication, ICustomerDiscountApplication customerDiscountApplication)
+        public IndexModel(IProductApplication productApplication, ICustomerDiscountApplication customerDiscountApplication)
         {
-            _productApplication = ProductApplication;
+            _productApplication = productApplication;
             _customerDiscountApplication = customerDiscountApplication;
         }
+
+        [NeedsPermission(DiscountPermissions.ListCustomerDiscounts)]
 
         public void OnGet(CustomerDiscountSearchModel searchModel)
         {
@@ -44,6 +48,8 @@ namespace ServiceHost.Areas.Administration.Pages.Discounts.CustomerDiscounts
 
     }
 
+        [NeedsPermission(DiscountPermissions.CreateCustomerDiscounts)]
+
         public JsonResult OnPostCreate(DefineCustomerDiscount command)
         {
             var result = _customerDiscountApplication.Define(command);
@@ -56,6 +62,8 @@ namespace ServiceHost.Areas.Administration.Pages.Discounts.CustomerDiscounts
             customerDiscount.Products = _productApplication.GetProducts();
             return Partial("Edit", customerDiscount);
         }
+
+        [NeedsPermission(DiscountPermissions.EditCustomerDiscounts)]
 
         public JsonResult OnPostEdit(EditCustomerDiscount command)
         {

@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using ShopManagement.Application.Contracts.Product;
 using ShopManagement.Application.Contracts.ProductPicture;
 using System.Collections.Generic;
+using _0_Framework.Infrastructure;
 using ShopManagement.Application;
+using ShopManagement.Configuration.Permissions;
 
 namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures
 {
@@ -24,6 +26,8 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures
             _productPictureApplication = productPictureApplication;
         }
 
+        [NeedsPermission(ShopPermissions.ListProductPictures)]
+
         public void OnGet(ProductPictureSearchModel searchModel)
         {
             Products = new SelectList(_productApplication.GetProducts(), "Id", "Name");
@@ -39,6 +43,8 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures
             return Partial("./Create", command);
         }
 
+        [NeedsPermission(ShopPermissions.CreateProductPictures)]
+
         public JsonResult OnPostCreate(CreateProductPicture command)
         {
             var result = _productPictureApplication.Create(command);
@@ -52,11 +58,14 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures
             return Partial("Edit", productPicture);
         }
 
+        [NeedsPermission(ShopPermissions.EditProductPictures)]
+
         public JsonResult OnPostEdit(EditProductPicture command)
         {
             var result = _productPictureApplication.Edit(command);
             return new JsonResult(result);
         }
+        [NeedsPermission(ShopPermissions.RemoveProductPictures)]
 
         public IActionResult OnGetRemove(long id)
         {
@@ -67,6 +76,8 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures
             Message = result.Message;
             return RedirectToPage("./Index");
         }
+
+        [NeedsPermission(ShopPermissions.RestoreProductPictures)]
 
         public IActionResult OnGetRestore(long id)
         {

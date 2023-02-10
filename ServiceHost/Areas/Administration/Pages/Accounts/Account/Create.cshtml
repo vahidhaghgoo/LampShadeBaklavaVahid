@@ -38,6 +38,13 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
+                    <label asp-for="Email" class="control-label">ایمیل</label>
+                    <input type="text" class="form-control" asp-for="Email">
+                    <span asp-validation-for="Email" class="error"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
                     <label asp-for="Password" class="control-label">کلمه رمز</label>
                     <input type="text" class="form-control" asp-for="Password">
                     <span asp-validation-for="Password" class="error"></span>
@@ -48,12 +55,11 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <label asp-for="RoleId" class="control-label">نقش</label>
-                     <select class="form-control" asp-for="RoleId"
+                    <select class="form-control" asp-for="RoleId"
                             asp-items='new SelectList(Model.Roles, "Id", "Name")'>
                         <option value="0">گروه محصول</option>
                     </select>
-                   
-                    <span asp-validation-for="RoleId" class="error"></span>
+                    <span asp-validation-for="RoleId" ></span>
                 </div>
             </div>
         </div>

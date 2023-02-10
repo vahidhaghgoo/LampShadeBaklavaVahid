@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AccountManagement.Application.Contracts.Account;
+ using _0_Framework.Infrastructure;
+ using AccountManagement.Application.Contracts.Account;
  using AccountManagement.Application.Contracts.Role;
+ using AccountManagement.Configuration.Permissions;
+ using BlogManagement.Infrastructure.Configuration.Permissions;
+ using Microsoft.AspNetCore.Authorization;
  using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,6 +16,7 @@ using ShopManagement.Application.Contracts.ProductCategory;
 
  namespace ServiceHost.Areas.Administration.Pages.Accounts.Role
  {
+     //[Authorize(Roles = _0_Framework.Infrastructure.Roles.Administrator)]
      public class IndexModel : PageModel
      {
          [TempData]
@@ -25,7 +30,9 @@ using ShopManagement.Application.Contracts.ProductCategory;
              _roleApplication = roleApplication;
          }
 
-         public void OnGet()
+         [NeedsPermission(AccountPermissions.ListRole)]
+
+        public void OnGet()
          {
              Roles = _roleApplication.List();
          }

@@ -29,11 +29,15 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Orders
             _accountApplication = accountApplication;
         }
 
+        [NeedsPermission(ShopPermissions.ListOrders)]
+
         public void OnGet(OrderSearchModel searchModel)
         {
             Accounts = new SelectList(_accountApplication.GetAccounts(), "Id", "Fullname");
             Orders = _orderApplication.Search(searchModel);
         }
+
+        [NeedsPermission(ShopPermissions.ConfirmOrders)]
 
         public IActionResult OnGetConfirm(long id)
         {
@@ -41,11 +45,15 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Orders
             return RedirectToPage("./Index");
         }
 
+        [NeedsPermission(ShopPermissions.CancelOrders)]
+
         public IActionResult OnGetCancel(long id)
         {
             _orderApplication.Cancel(id);
             return RedirectToPage("./Index");
         }
+
+        [NeedsPermission(ShopPermissions.ItemsOrders)]
 
         public IActionResult OnGetItems(long id)
         {

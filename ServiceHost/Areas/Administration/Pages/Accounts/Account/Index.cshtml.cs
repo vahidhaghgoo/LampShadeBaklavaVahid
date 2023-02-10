@@ -1,17 +1,16 @@
- using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using _0_Framework.Infrastructure;
 using AccountManagement.Application.Contracts.Account;
  using AccountManagement.Application.Contracts.Role;
- using Microsoft.AspNetCore.Mvc;
+using AccountManagement.Configuration.Permissions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ShopManagement.Application.Contracts.Product;
-using ShopManagement.Application.Contracts.ProductCategory;
 
 namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
 {
+    //[Authorize(Roles =_0_Framework.Infrastructure.Roles.Administrator)]
+
     public class IndexModel : PageModel
     {
         [TempData] public string Message { get; set; }
@@ -28,6 +27,8 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
             _accountApplication = accountApplication;
         }
 
+        [NeedsPermission(AccountPermissions.ListAccount)]
+
         public void OnGet(AccountSearchModel searchModel)
         {
             Roles = new SelectList(_roleApplication.List(), "Id", "Name");
@@ -43,6 +44,8 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
             return Partial("./Create", command);
         }
 
+        [NeedsPermission(AccountPermissions.CreateAccount)]
+
         public JsonResult OnPostCreate(RegisterAccount command)
         {
             var result = _accountApplication.Register(command);
@@ -56,11 +59,14 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
             return Partial("Edit", account);
         }
 
+        [NeedsPermission(AccountPermissions.EditAccount)]
+
         public JsonResult OnPostEdit(EditAccount command)
         {
             var result = _accountApplication.Edit(command);
             return new JsonResult(result);
         }
+
 
         public IActionResult OnGetChangePassword(long id)
         {
@@ -68,10 +74,13 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
             return Partial("ChangePassword", command);
         }
 
+        [NeedsPermission(AccountPermissions.ChangePasswordAccount)]
+
         public JsonResult OnPostChangePassword(ChangePassword command)
         {
             var result = _accountApplication.ChangePassword(command);
             return new JsonResult(result);
         }
+       
     }
 }

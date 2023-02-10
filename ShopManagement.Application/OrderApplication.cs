@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using _0_Framework.Application;
+using _0_Framework.Application.Sms;
 using Microsoft.Extensions.Configuration;
 using ShopManagement.Application.Contracts.Order;
 using ShopManagement.Domain.OrderAgg;
@@ -17,16 +18,19 @@ namespace ShopManagement.Application
         private readonly IConfiguration _configuration;
         private readonly IOrderRepository _orderRepository;
         private readonly IShopInventoryAcl _shopInventoryAcl;
+        private readonly ISmsService _smsService;
+        private readonly IShopAccountAcl _shopAccountAcl;
 
         public OrderApplication(IAuthHelper authHelper, IConfiguration configuration, IOrderRepository orderRepository,  
-            IShopInventoryAcl shopInventoryAcl)
+            IShopInventoryAcl shopInventoryAcl, ISmsService smsService, IShopAccountAcl shopAccountAcl)
         {
             _authHelper = authHelper;
             _configuration = configuration;
             _orderRepository = orderRepository;
             
             _shopInventoryAcl = shopInventoryAcl;
-            
+            _smsService = smsService;
+            _shopAccountAcl = shopAccountAcl;
         }
 
         public long PlaceOrder(Cart cart)
@@ -69,6 +73,9 @@ namespace ShopManagement.Application
             if (!_shopInventoryAcl.ReduceFromInventory(order.Items)) return "";
 
             _orderRepository.SaveChanges();
+            var account = _shopAccountAcl.GetAccountBy(order.AccountId);
+            var customerMobile = _authHelper.CurrentAccountMobile();
+            _smsService.Send(account.mobile,$"{account.name} گرامی سفارش شما با شماره پیگیری {issueTrackingNo}با موفقیت پرداخت شد و ارسال خواهد شذ.");
             return issueTrackingNo;
         }
 

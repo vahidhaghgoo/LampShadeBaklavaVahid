@@ -72,7 +72,7 @@
                                 {
                                     <div class="alert alert-danger">@Model.RegisterMessage</div>
                                 }
-                                <form method="post" asp-page-handler="RegisterAccount">
+                                <form method="post" asp-page-handler="Register">
 
                                     <div class="login-form">
                                         <h4 class="login-title">ثبت نام</h4>
@@ -90,6 +90,10 @@
                                                 <label>موبایل</label>
                                                 <input type="number" name="mobile" placeholder="موبایل">
                                             </div>
+                                            <div class="col-md-12 mb-20">
+                                                <label>ایمیل</label>
+                                                <input type="text" name="email" placeholder="ایمیل">
+                                            </div>
                                             <div class="col-md-6 mb-20">
                                                 <label>کلمه رمز</label>
                                                 <input type="password" name="password" placeholder="کلمه رمز">
@@ -99,7 +103,7 @@
                                                 <input type="password" name="rePassword" placeholder="تایید کلمه رمز">
                                             </div>
                                             <div class="col-12">
-                                                <button class="register-button mt-0">ثبت نام</button>
+                                                <button  class="register-button mt-0">ثبت نام</button>
                                             </div>
                                         </div>
                                     </div>

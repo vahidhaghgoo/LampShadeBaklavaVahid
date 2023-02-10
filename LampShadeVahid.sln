@@ -43,7 +43,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DM.Infrastructure", "DM.Inf
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscountManagement.Infrastructur.EFCore", "DiscountManagement.Infrastructur.EFCore\DiscountManagement.Infrastructur.EFCore.csproj", "{D58A0817-66DA-4929-BC25-A380FD8B26B0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscountManagement.Configureation", "DiscountManagement.Configureation\DiscountManagement.Configureation.csproj", "{7454E2E1-EE27-4959-839A-A3E9C684D552}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscountManagement.Configuration", "DiscountManagement.Configureation\DiscountManagement.Configuration.csproj", "{7454E2E1-EE27-4959-839A-A3E9C684D552}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InventoryManagement", "InventoryManagement", "{9471AA49-6684-4F19-9BBE-6601441FAB71}"
 EndProject
@@ -59,7 +59,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IM.Infrastructure", "IM.Inf
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryManagement.Infrastructure.EFCore", "InventoryManagement.Infrastructure.EFCore\InventoryManagement.Infrastructure.EFCore.csproj", "{8A25A589-BBC2-4F2F-88E6-CAA804F93F9B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryManagement.Infratructure.Configuration", "InventoryManagement.Infratructure.Configuration\InventoryManagement.Infratructure.Configuration.csproj", "{2ADABB1B-9A5B-4573-8992-42A8C1404C06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryManagement.Infrastructure.Configuration", "InventoryManagement.Infratructure.Configuration\InventoryManagement.Infrastructure.Configuration.csproj", "{2ADABB1B-9A5B-4573-8992-42A8C1404C06}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryManagement.Application", "InventoryManagement.Application\InventoryManagement.Application.csproj", "{9DB037DF-A89C-46D2-8422-84E1BCEF5EE5}"
 EndProject
@@ -130,6 +130,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BM.Presentation", "BM.Presentation", "{124B266D-A5B5-48DE-B13D-2A6F3F4E9E48}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogManagement.Presentation.Api", "..\..\..\فیلم اموزش پروژه فروشگاه\38.سورس و قالب های فروشگاه\Code\Lampshade\BlogManagement.Presentation.Api\BlogManagement.Presentation.Api.csproj", "{B7C14ECC-D19E-4AF7-B7BE-B60901B54076}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopManagement.Infrastructure.AccountAcl", "ShopManagement.Infrastructure.AccountAcl\ShopManagement.Infrastructure.AccountAcl.csproj", "{A7F73B73-1670-4CC6-93DA-F7AFF200780D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -285,6 +287,10 @@ Global
 		{B7C14ECC-D19E-4AF7-B7BE-B60901B54076}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7C14ECC-D19E-4AF7-B7BE-B60901B54076}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7C14ECC-D19E-4AF7-B7BE-B60901B54076}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7F73B73-1670-4CC6-93DA-F7AFF200780D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7F73B73-1670-4CC6-93DA-F7AFF200780D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7F73B73-1670-4CC6-93DA-F7AFF200780D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7F73B73-1670-4CC6-93DA-F7AFF200780D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -345,6 +351,7 @@ Global
 		{230B8708-3D08-4E83-89EE-36D6E1DA1B02} = {532037A3-AC05-4AA3-9A3F-1883962DF9EA}
 		{124B266D-A5B5-48DE-B13D-2A6F3F4E9E48} = {5B01919D-D296-48D6-B474-1E8BE86C2CF6}
 		{B7C14ECC-D19E-4AF7-B7BE-B60901B54076} = {124B266D-A5B5-48DE-B13D-2A6F3F4E9E48}
+		{A7F73B73-1670-4CC6-93DA-F7AFF200780D} = {0366DC88-4195-489C-BA51-FAD4ACBBC346}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {20204333-2852-4160-81E0-2B3B91A82293}

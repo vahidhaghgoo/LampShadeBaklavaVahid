@@ -46,8 +46,8 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Products
 
             return Partial("./Create", command);
         }
-        [NeedsPermission(ShopPermissions.CreateProduct)]
 
+        [NeedsPermission(ShopPermissions.CreateProduct)]
         public JsonResult OnPostCreate(CreateProduct command)
         {
             var result = _productApplication.Create(command);
@@ -60,8 +60,8 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Products
             product.Categories = _productCategoryApplication.GetProductCategories();
             return Partial("Edit", product);
         }
-        [NeedsPermission(ShopPermissions.EditProduct)]
 
+        [NeedsPermission(ShopPermissions.EditProduct)]
         public JsonResult OnPostEdit(EditProduct command)
         {
             var result = _productApplication.Edit(command);

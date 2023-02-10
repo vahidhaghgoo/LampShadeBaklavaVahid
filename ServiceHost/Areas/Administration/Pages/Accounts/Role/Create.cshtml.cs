@@ -1,4 +1,7 @@
+using _0_Framework.Infrastructure;
 using AccountManagement.Application.Contracts.Role;
+using AccountManagement.Configuration.Permissions;
+using BlogManagement.Infrastructure.Configuration.Permissions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -17,6 +20,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Role
         public void OnGet()
         {
         }
+        [NeedsPermission(AccountPermissions.CreateRole)]
 
         public IActionResult OnPost(CreateRole command)
         {

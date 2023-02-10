@@ -1,4 +1,5 @@
 ﻿@page
+@using AccountManagement.Configuration.Permissions
 @model ServiceHost.Areas.Administration.Pages.Accounts.Account.IndexModel
 @{
 }
@@ -12,7 +13,7 @@
     <div class="col-sm-12">
         <h4 class="page-title pull-right">@ViewData["title"]</h4>
         <p class="pull-left">
-            <a class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")">ایجاد کاربر جدید</a>
+            <a permission="AccountPermissions.CreateAccount" class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")">ایجاد کاربر جدید</a>
         </p>
     </div>
 </div>
@@ -38,6 +39,10 @@
                         <input class="form-control" asp-for="SearchModel.Mobile" placeholder="موبایل">
                     </div>
                     <div class="form-group">
+                        <label class="sr-only" asp-for="SearchModel.Email"></label>
+                        <input class="form-control" asp-for="SearchModel.Email" placeholder="ایمیل">
+                    </div>
+                    <div class="form-group">
                         <label class="sr-only" asp-for="SearchModel.RoleId"></label>
                         <select class="form-control" asp-for="SearchModel.RoleId" asp-items="Model.Roles">
                             <option value="0">نقش ...</option>
@@ -51,7 +56,7 @@
     </div>
 </div>
 
-<div class="row" id="ProductCategoriesDiv">
+<div class="row" id="ProductCategoriesDiv" permission="AccountPermissions.ListAccount">
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -68,6 +73,7 @@
                                     <th>نام</th>
                                     <th>نام کاربری</th>
                                     <th>موبایل</th>
+                                    <th>ایمیل</th>
                                     <th>نقش</th>
                                     <th>تاریخ تولید</th>
                                     <th>عملیات</th>
@@ -84,14 +90,15 @@
                                         <td>@item.Fullname</td>
                                         <td>@item.Username</td>
                                         <td>@item.Mobile</td>
+                                        <td>@item.Email</td>
                                         <td>@item.Role</td>
                                         <td>@item.CreationDate</td>
                                         <td>
-                                            <a class="btn btn-warning waves-effect waves-light m-b-5"
+                                            <a permission="AccountPermissions.EditAccount" class="btn btn-warning waves-effect waves-light m-b-5"
                                                href="#showmodal=@Url.Page("./Index", "Edit", new { id = item.Id})">
                                                 <i class="fa fa-edit"></i> ویرایش
                                             </a>
-                                            <a class="btn btn-primary waves-effect waves-light m-b-5"
+                                            <a permission="AccountPermissions.ChangePasswordAccount" class="btn btn-primary waves-effect waves-light m-b-5"
                                                href="#showmodal=@Url.Page("./Index", "ChangePassword", new { id = item.Id})">
                                                 <i class="fa fa-key"></i> تغییر رمز
                                             </a>

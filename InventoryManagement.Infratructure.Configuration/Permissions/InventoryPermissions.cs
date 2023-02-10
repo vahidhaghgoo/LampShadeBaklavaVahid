@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace InventoryManagement.Infratructure.Configuration.Permissions
+﻿namespace InventoryManagement.Infrastructure.Configuration.Permissions
 {
     public static class InventoryPermissions
     {

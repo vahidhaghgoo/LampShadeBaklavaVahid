@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using _0_Framework.Application;
+﻿using _0_Framework.Application;
 using _0_Framework.Infrastructure;
 using CommentManagement.Application.Contracts.Comment;
 using CommentManagement.Domain.CommentAgg;
-using CommentManagement.Infrastructure.EFCore;
-using Microsoft.EntityFrameworkCore;
 
 
 namespace CommentManagement.Infrastructure.EFCore.Repository

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using _0_Framework.Infrastructure;
+﻿using _0_Framework.Infrastructure;
 
-namespace InventoryManagement.Infratructure.Configuration.Permissions
+namespace InventoryManagement.Infrastructure.Configuration.Permissions
 {
     public class InventoryPermissionExposer : IPermissionExposer
     {

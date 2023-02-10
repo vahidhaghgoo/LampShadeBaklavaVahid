@@ -11,7 +11,7 @@ namespace BlogManagement.Domain.ArticleCategoryAgg
     public class ArticleCategory : EntityBase
     {
         public string Name { get; private set; }
-        public string Picture { get; private set; }
+        public string? Picture { get; private set; }
         public string PictureAlt { get; private set; }
         public string PictureTitle { get; private set; }
         public string Description { get; private set; }
@@ -23,7 +23,7 @@ namespace BlogManagement.Domain.ArticleCategoryAgg
         public List<Article> Articles { get; private set; }
 
 
-        public ArticleCategory(string name, string picture,string pictureAlt,string pictureTitle, string description, int showOrder, string slug, string keywords, string metaDescription, string canonicalAddress)
+        public ArticleCategory(string name, string? picture,string pictureAlt,string pictureTitle, string description, int showOrder, string slug, string keywords, string metaDescription, string canonicalAddress)
         {
             Name = name;
             Picture = picture;
@@ -37,7 +37,7 @@ namespace BlogManagement.Domain.ArticleCategoryAgg
             CanonicalAddress = canonicalAddress;
         }
 
-        public void Edit(string name, string picture, string pictureAlt, string pictureTitle, string description, int showOrder, string slug, string keywords, string metaDescription, string canonicalAddress)
+        public void Edit(string name, string? picture, string pictureAlt, string pictureTitle, string description, int showOrder, string slug, string keywords, string metaDescription, string canonicalAddress)
         {
             Name = name;
 

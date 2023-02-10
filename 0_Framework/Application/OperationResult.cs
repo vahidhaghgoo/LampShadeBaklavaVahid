@@ -14,7 +14,7 @@ namespace _0_Framework.Application
             IsSuccedded = false;
         }
 
-        public OperationResult Succedded(string message = "عملیات باموفقیت انجام شد")
+        public OperationResult Succedded(string message = "عملیات با موفقیت انجام شد")
         {
             IsSuccedded = true;
             Message = message;
@@ -27,6 +27,8 @@ namespace _0_Framework.Application
             Message = message;
             return this;
         }
-}
+
+       
+    }
 }
 

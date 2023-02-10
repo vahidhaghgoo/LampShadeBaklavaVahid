@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using _0_Framework.Application;
+﻿using _0_Framework.Application;
 using _0_Framework.Infrastructure;
 using AccountManagement.Domain.AccountAgg;
 using AccountManagement.Application.Contracts.Account;
@@ -32,6 +27,7 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
                 Id = x.Id,
                 Fullname = x.Fullname,
                 Mobile = x.Mobile,
+                Email = x.Email,
                 RoleId = x.RoleId,
                 Username = x.Username
             }).FirstOrDefault(x => x.Id == id);
@@ -43,6 +39,7 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
             {
                 Id = x.Id,
                 Fullname = x.Fullname
+                
             }).ToList();
         }
 
@@ -53,6 +50,7 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
                 Id = x.Id,
                 Fullname = x.Fullname,
                 Mobile = x.Mobile,
+                Email = x.Email,
                 ProfilePhoto = x.ProfilePhoto,
                 Role = x.Role.Name,
                 RoleId = x.RoleId,

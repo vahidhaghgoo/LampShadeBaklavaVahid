@@ -81,11 +81,11 @@ $(document).ready(function () {
 
 function CallBackHandler(data, action, form) {
     switch (action) {
-        case "Message":
-            alert(data.Message);
-            break;
+        //case "Message":
+        //    alert(data.Message);
+        //    break;
         case "Refresh":
-            if (data.IsSuccedded) {
+            if (data.isSuccedded) {
                 window.location.reload();
             } else {
                 alert(data.message);

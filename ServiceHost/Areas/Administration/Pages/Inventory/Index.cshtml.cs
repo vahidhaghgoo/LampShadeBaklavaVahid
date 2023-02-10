@@ -6,7 +6,7 @@ using _0_Framework.Infrastructure;
 using DiscountManagement.Application.Contracts.ColleagueDiscount;
 using DiscountManagement.Application.Contracts.CoustomerDiscount;
 using InventoryManagement.Application.Contract.Inventory;
-using InventoryManagement.Infratructure.Configuration.Permissions;
+using InventoryManagement.Infrastructure.Configuration.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;

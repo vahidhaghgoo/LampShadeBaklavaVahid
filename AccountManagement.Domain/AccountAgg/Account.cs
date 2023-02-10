@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using _0_Framework.Domain;
+﻿using _0_Framework.Domain;
 using AccountManagement.Domain.RoleAgg;
+using Microsoft.AspNetCore.Http;
 
 namespace AccountManagement.Domain.AccountAgg
 {
@@ -14,25 +10,29 @@ namespace AccountManagement.Domain.AccountAgg
         public string Username { get; private set; }
         public string Password { get; private set; }
         public string Mobile { get; private set; }
+        public string? Email { get; private set; }
         public long RoleId { get; private set; }
         public Role Role { get; private set; }
-        public string ProfilePhoto { get; private set; }
+        public string? ProfilePhoto { get; private set; }
 
         public Account(string fullname, string username, string password, string mobile,
-            long roleId, string profilePhoto)
+            long roleId, string? profilePhoto, string? email)
         {
             Fullname = fullname;
             Username = username;
             Password = password;
             Mobile = mobile;
             RoleId = roleId;
+
             if (roleId == 0)
                 RoleId = 2;
+
             ProfilePhoto = profilePhoto;
+            Email = email;
         }
 
         public void Edit(string fullname, string username, string mobile,
-            long roleId, string profilePhoto)
+            long roleId, string? profilePhoto,string? email)
         {
             Fullname = fullname;
             Username = username;
@@ -41,6 +41,8 @@ namespace AccountManagement.Domain.AccountAgg
 
             if (!string.IsNullOrWhiteSpace(profilePhoto))
                 ProfilePhoto = profilePhoto;
+            Email = email;
+
         }
 
         public void ChangePassword(string password)
