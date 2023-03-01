@@ -1,8 +1,9 @@
-﻿@model List<_01_LampshadeQuery.Contracts.Slide.SlideQueryModel>
+﻿@model List<_01_LampshadeQuery.Contracts.Slide2.Slide2QueryModel>
 
 <div class="hero-slider-area section-space">
     <div class="container wide">
-        <div class="row" style="width: 65%; margin-left:600px;">
+        
+         <div class="row" style="width: 30%; margin-top:-900px;">
             <div class="col-lg-12">
                 <div class="hero-slider-wrapper">
                     <div class="ht-slick-slider" data-slick-setting='{
@@ -26,22 +27,22 @@
                         {"breakpoint":479, "settings": {"slidesToShow": 1, "arrows": false} }
                     ]'>
 
-                        @foreach (var slide in Model)
+                        @foreach (var slide2 in Model)
                         {
                             <div class="single-slider-item" >
                                 <div class="hero-slider-item-wrapper" >
                                     <div class="container">
-                                        <img src="~/ProductPictures/@slide.Picture" alt="@slide.PictureAlt" title="@slide.PictureTitle" style = "position :absolute;top:0; left:0; height: 100%; width: 100%; border-radius: 20px;"/>
+                                        <img src="~/ProductPictures/@slide2.Picture" alt="@slide2.PictureAlt" title="@slide2.PictureTitle" style = "position :absolute;top:0; left:0; height: 100%; width: 100%; border-radius: 20px;"/>
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="hero-slider-content hero-slider-content--left-space">
-                                                    <p class="slider-title slider-title--big-light">@slide.Heading</p>
-                                                    <p class="slider-title slider-title--big-bold">@slide.Title</p>
-                                                    <p class="slider-title slider-title--small">
+                                                    @*<p class="slider-title slider-title--big-light">@slide.Heading</p>*@
+                                                    <p class="slider-title slider-title--big-bold">@slide2.Title</p>
+                                                   @* <p class="slider-title slider-title--small">
                                                         @slide.Text
-                                                    </p>
-                                                    <a class="hero-slider-button" href="@slide.Link">
-                                                        @slide.BtnText <i class="ion-ios-plus-empty"></i>
+                                                    </p>*@
+                                                    <a class="hero-slider-button" href="@slide2.Link">
+                                                        @slide2.BtnText <i class="ion-ios-plus-empty"></i>
                                                     </a>
                                                 </div>
                                             </div>
