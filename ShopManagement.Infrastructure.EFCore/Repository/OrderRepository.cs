@@ -72,6 +72,7 @@ namespace ShopManagement.Infrastructure.EFCore.Repository
                 PayAmount = x.PayAmount,
                 PaymentMethodId = x.PaymentMethod,
                 RefId = x.RefId,
+                Address = x.Address,
                 TotalAmount = x.TotalAmount,
                 CreationDate = x.CreationDate.ToFarsi()
             });

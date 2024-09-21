@@ -26,7 +26,7 @@ namespace _0_Framework.Application
             IsSuccedded = false;
             Message = message;
             return this;
-        }
+       }
 
        
     }

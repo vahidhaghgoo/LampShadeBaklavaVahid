@@ -1,6 +1,7 @@
 using AccountManagement.Application.Contracts.Account;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace ServiceHost.Pages
 {
@@ -11,6 +12,7 @@ namespace ServiceHost.Pages
 
         [TempData]
         public string RegisterMessage { get; set; }
+
 
         private readonly IAccountApplication _accountApplication;
 
@@ -30,7 +32,7 @@ namespace ServiceHost.Pages
                 return RedirectToPage("/Index");
 
             LoginMessage = result.Message;
-            return RedirectToPage("/Account");
+            return Page();
         }
 
         public IActionResult OnGetLogout()
@@ -38,6 +40,7 @@ namespace ServiceHost.Pages
             _accountApplication.Logout();
             return RedirectToPage("/Index");
         }
+
         public IActionResult OnPostRegister(RegisterAccount command)
         {
             var result = _accountApplication.Register(command);

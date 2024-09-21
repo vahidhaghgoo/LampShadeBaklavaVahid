@@ -64,8 +64,9 @@
                                 <th>شماره پیگیری</th>
                                 <th>شناسه خرید</th>
                                 <th>تاریخ خرید</th>
+                                <th>آدرس</th>
                                 <th>وضعیت</th>
-                                <th>عملیات</th>
+                               <th>عملیات</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -81,6 +82,7 @@
                                     <td>@item.IssueTrackingNo</td>
                                     <td>@item.RefId</td>
                                     <td>@item.CreationDate</td>
+                                    <td>@item.Address</td>
                                     <td>
                                         @if (item.IsCanceled)
                                         {

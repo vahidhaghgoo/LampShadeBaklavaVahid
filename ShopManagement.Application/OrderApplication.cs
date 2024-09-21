@@ -37,11 +37,11 @@ namespace ShopManagement.Application
         {
             var currentAccountId = _authHelper.CurrentAccountId();
             var order = new Order(currentAccountId, cart.PaymentMethod, cart.TotalAmount, cart.DiscountAmount,
-                cart.PayAmount);
+                cart.PayAmount,cart.Address);
 
             foreach (var cartItem in cart.Items)
             {
-                var orderItem = new OrderItem(cartItem.Id, cartItem.Count, cartItem.UnitPrice, cartItem.DiscountRate);
+                var orderItem = new OrderItem(cartItem.Id, cartItem.Count, cartItem.UnitPrice, cartItem.DiscountRate,cartItem.Address);
                 order.AddItem(orderItem);
             }
 

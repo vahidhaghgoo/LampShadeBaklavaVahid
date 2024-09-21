@@ -14,14 +14,16 @@ namespace ShopManagement.Domain.OrderAgg
         public double UnitPrice { get; private set; }
         public int DiscountRate { get; private set; }
         public long OrderId { get; private set; }
+        public string Address { get; private set; }
         public Order Order { get; private set; }
 
-        public OrderItem(long productId, int count, double unitPrice, int discountRate)
+        public OrderItem(long productId, int count, double unitPrice, int discountRate,string address)
         {
             ProductId = productId;
             Count = count;
             UnitPrice = unitPrice;
             DiscountRate = discountRate;
+            Address = address;
         }
     }
 }

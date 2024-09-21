@@ -18,6 +18,8 @@ namespace ShopManagement.Application.Contracts.Order
         public int DiscountRate { get; set; }
         public double DiscountAmount { get; set; }
         public double ItemPayAmount { get; set; }
+        public string Address { get; set; }
+
 
         public CartItem()
         {

@@ -12,6 +12,8 @@ namespace ShopManagement.Application.Contracts.Order
         public double DiscountAmount { get; set; }
         public double PayAmount { get; set; }
         public int PaymentMethod { get;  set; }
+        public string Address { get; set; }
+
         public List<CartItem> Items { get; set; }
 
         public Cart()

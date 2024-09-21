@@ -42,6 +42,7 @@
                                     <th class="pro-thumbnail">محصول</th>
                                     <th class="pro-title">قیمت واحد</th>
                                     <th class="pro-price">تعداد</th>
+                                    <th class="pro-price">آدرس</th>
                                     <th class="pro-quantity">مبلغ کل بدون تخفیف</th>
                                     <th class="pro-subtotal">درصد تخفیف</th>
                                     <th class="pro-subtotal">مبلغ کل تخفیف</th>
@@ -66,6 +67,9 @@
                                         </td>
                                         <td class="pro-price">
                                             <span>@item.Count عدد</span>
+                                        </td>
+                                        <td class="pro-price">
+                                            <span>@item.Address </span>
                                         </td>
                                         <td class="pro-subtotal">
                                             <span>@item.TotalItemPrice.ToMoney() تومان</span>

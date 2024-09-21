@@ -16,6 +16,7 @@ namespace ServiceHost.Pages
     [Authorize]
     public class CheckoutModel : PageModel
     {
+        
         public Cart Cart;
         public const string CookieName = "cart-items";
         private readonly IAuthHelper _authHelper;

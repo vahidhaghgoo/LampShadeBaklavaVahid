@@ -20,6 +20,7 @@ namespace ShopManagement.Application.Contracts.Order
         public bool IsCanceled { get; set; }
         public string IssueTrackingNo { get; set; }
         public long RefId { get; set; }
+        public string Address { get; set; }
         public string CreationDate { get; set; }
     }
 }
