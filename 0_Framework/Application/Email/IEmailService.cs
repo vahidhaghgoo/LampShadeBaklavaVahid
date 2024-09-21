@@ -1,7 +1,6 @@
-﻿namespace _0_Framework.Application.Email
+﻿namespace _0_Framework.Application.Email;
+
+public interface IEmailService
 {
-    public interface IEmailService
-    {
-        void SendEmail(string title, string messageBody, string destination);
-    }
+    void SendEmail(string title, string messageBody, string destination);
 }

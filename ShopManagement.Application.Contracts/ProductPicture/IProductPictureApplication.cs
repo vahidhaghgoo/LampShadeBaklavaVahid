@@ -1,21 +1,14 @@
-﻿using _0_Framework.Application;
-using ShopManagement.Application.Contracts.Product;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using _0_Framework.Application;
 
-namespace ShopManagement.Application.Contracts.ProductPicture
+namespace ShopManagement.Application.Contracts.ProductPicture;
+
+public interface IProductPictureApplication
 {
-    public interface IProductPictureApplication
-    {
-        OperationResult Create(CreateProductPicture command);
-        OperationResult Edit(EditProductPicture command);
-        OperationResult Remove(long id);
-        OperationResult Restore(long id);   
-        EditProductPicture GetDetails(long id);
-        List<ProductPictureViewModel> Search(ProductPictureSearchModel searchModel);
-        
-    }
+    OperationResult Create(CreateProductPicture command);
+    OperationResult Edit(EditProductPicture command);
+    OperationResult Remove(long id);
+    OperationResult Restore(long id);
+    EditProductPicture GetDetails(long id);
+    List<ProductPictureViewModel> Search(ProductPictureSearchModel searchModel);
 }

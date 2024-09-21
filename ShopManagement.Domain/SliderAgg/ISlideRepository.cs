@@ -1,16 +1,11 @@
-﻿using _0_Framework.Domain;
+﻿using System.Collections.Generic;
+using _0_Framework.Domain;
 using ShopManagement.Application.Contracts.Slide;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ShopManagement.Domain.SliderAgg
+namespace ShopManagement.Domain.SliderAgg;
+
+public interface ISlideRepository : IRepository<long, Slide>
 {
-    public interface ISlideRepository : IRepository<long,Slide>
-    {
-        EditSlide GetDetails(long id);
-        List<SlideViewModel> Getlist();
-    }
+    EditSlide GetDetails(long id);
+    List<SlideViewModel> Getlist();
 }

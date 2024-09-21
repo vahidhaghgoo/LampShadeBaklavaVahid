@@ -1,26 +1,20 @@
-﻿using ShopManagement.Domain.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AccountManagement.Application.Contracts.Account;
+﻿using AccountManagement.Application.Contracts.Account;
+using ShopManagement.Domain.Services;
 
-namespace ShopManagement.Infrastructure.AccountAcl
+namespace ShopManagement.Infrastructure.AccountAcl;
+
+public class ShopAccountAcl : IShopAccountAcl
 {
-    public class ShopAccountAcl : IShopAccountAcl
+    private readonly IAccountApplication _accountApplication;
+
+    public ShopAccountAcl(IAccountApplication accountApplication)
     {
-        private readonly IAccountApplication _accountApplication;
+        _accountApplication = accountApplication;
+    }
 
-        public ShopAccountAcl(IAccountApplication accountApplication)
-        {
-            _accountApplication = accountApplication;
-        }
-
-        public (string name, string mobile) GetAccountBy(long id)
-        {
-            var account = _accountApplication.GetAccountBy(id);
-            return (account.Fullname, account.Mobile);
-        }
+    public (string name, string mobile) GetAccountBy(long id)
+    {
+        var account = _accountApplication.GetAccountBy(id);
+        return (account.Fullname, account.Mobile);
     }
 }

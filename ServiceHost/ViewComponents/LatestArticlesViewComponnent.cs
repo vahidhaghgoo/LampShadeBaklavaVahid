@@ -1,23 +1,20 @@
 ﻿using _01_LampshadeQuery.Contracts.Article;
-using _01_LampshadeQuery.Contracts.Product;
-using _01_LampshadeQuery.Contracts.ProductCategory;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ServiceHost.ViewComponents
+namespace ServiceHost.ViewComponents;
+
+public class LatestArticlesViewComponent : ViewComponent
 {
-    public class LatestArticlesViewComponent : ViewComponent
+    private readonly IArticleQuery _articleQuery;
+
+    public LatestArticlesViewComponent(IArticleQuery articleQuery)
     {
-        private readonly IArticleQuery _articleQuery;
+        _articleQuery = articleQuery;
+    }
 
-        public LatestArticlesViewComponent(IArticleQuery articleQuery)
-        {
-            _articleQuery = articleQuery;
-        }
-
-        public IViewComponentResult Invoke()
-        {
-            var articles = _articleQuery.LatestArticles();
-            return View(articles);
-        }
+    public IViewComponentResult Invoke()
+    {
+        var articles = _articleQuery.LatestArticles();
+        return View(articles);
     }
 }

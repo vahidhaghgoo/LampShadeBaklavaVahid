@@ -9,25 +9,24 @@ namespace ServiceHost.Areas.Administration.Pages.Comments;
 
 public class IndexModel : PageModel
 {
-    [TempData] public string Message { get; set; }
+    private readonly ICommentApplication _commentApplication;
     public List<CommentViewModel> Comments;
     public CommentSearchModel SearchModel;
-    private readonly ICommentApplication _commentApplication;
 
     public IndexModel(ICommentApplication commentApplication)
     {
         _commentApplication = commentApplication;
     }
 
-    [NeedsPermission(CommentPermissions.ListComments)]
+    [TempData] public string Message { get; set; }
 
+    [NeedsPermission(CommentPermissions.ListComments)]
     public void OnGet(CommentSearchModel searchModel)
     {
         Comments = _commentApplication.Search(searchModel);
     }
 
     [NeedsPermission(CommentPermissions.CancelComments)]
-
     public IActionResult OnGetCancel(long id)
     {
         var result = _commentApplication.Cancel(id);
@@ -39,7 +38,6 @@ public class IndexModel : PageModel
     }
 
     [NeedsPermission(CommentPermissions.ConfirmComments)]
-
     public IActionResult OnGetConfirm(long id)
     {
         var result = _commentApplication.Confirm(id);

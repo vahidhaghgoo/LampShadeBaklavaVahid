@@ -4,30 +4,29 @@ using CommentManagement.Infrastructure.EFCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ServiceHost.Pages
+namespace ServiceHost.Pages;
+
+public class ProductModel : PageModel
 {
-    public class ProductModel : PageModel
+    private readonly ICommentApplication _commentApplication;
+    private readonly IProductQuery _productQuery;
+    public ProductQueryModel Product;
+
+    public ProductModel(IProductQuery productQuery, ICommentApplication commentApplication)
     {
-        public ProductQueryModel Product;
-        private readonly IProductQuery _productQuery;
-        private readonly ICommentApplication _commentApplication;
+        _productQuery = productQuery;
+        _commentApplication = commentApplication;
+    }
 
-        public ProductModel(IProductQuery productQuery, ICommentApplication commentApplication)
-        {
-            _productQuery = productQuery;
-            _commentApplication = commentApplication;
-        }
+    public void OnGet(string id)
+    {
+        Product = _productQuery.GetProductDetails(id);
+    }
 
-        public void OnGet(string id)
-        {
-            Product = _productQuery.GetProductDetails(id);
-        }
-
-        public IActionResult OnPost(AddComment command, string productSlug)
-        {
-            command.Type = CommentType.Product;
-            _commentApplication.Add(command);
-            return RedirectToPage("/Product", new { Id = productSlug });
-        }
+    public IActionResult OnPost(AddComment command, string productSlug)
+    {
+        command.Type = CommentType.Product;
+        _commentApplication.Add(command);
+        return RedirectToPage("/Product", new { Id = productSlug });
     }
 }

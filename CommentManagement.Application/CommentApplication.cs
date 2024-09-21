@@ -2,55 +2,54 @@
 using CommentManagement.Application.Contracts.Comment;
 using CommentManagement.Domain.CommentAgg;
 
-namespace CommentManagement.Application
+namespace CommentManagement.Application;
+
+public class CommentApplication : ICommentApplication
 {
-    public class CommentApplication : ICommentApplication
+    private readonly ICommentRepository _commentRepository;
+
+    public CommentApplication(ICommentRepository commentRepository)
     {
-        private readonly ICommentRepository _commentRepository;
+        _commentRepository = commentRepository;
+    }
 
-        public CommentApplication(ICommentRepository commentRepository)
-        {
-            _commentRepository = commentRepository;
-        }
+    public OperationResult Add(AddComment command)
+    {
+        var operation = new OperationResult();
+        var comment = new Comment(command.Name, command.Email, command.Website, command.Message,
+            command.OwnerRecordId, command.Type, command.ParentId);
 
-        public OperationResult Add(AddComment command)
-        {
-            var operation = new OperationResult();
-            var comment = new Comment(command.Name, command.Email, command.Website, command.Message,
-                command.OwnerRecordId, command.Type, command.ParentId);
+        _commentRepository.Create(comment);
+        _commentRepository.SaveChanges();
+        return operation.Succedded();
+    }
 
-            _commentRepository.Create(comment);
-            _commentRepository.SaveChanges();
-            return operation.Succedded();
-        }
+    public OperationResult Cancel(long id)
+    {
+        var operation = new OperationResult();
+        var comment = _commentRepository.Get(id);
+        if (comment == null)
+            return operation.Failed(ApplicationMessages.RecordNotFound);
 
-        public OperationResult Cancel(long id)
-        {
-            var operation = new OperationResult();
-            var comment = _commentRepository.Get(id);
-            if (comment == null)
-                return operation.Failed(ApplicationMessages.RecordNotFound);
+        comment.Cancel();
+        _commentRepository.SaveChanges();
+        return operation.Succedded();
+    }
 
-            comment.Cancel();
-            _commentRepository.SaveChanges();
-            return operation.Succedded();
-        }
+    public OperationResult Confirm(long id)
+    {
+        var operation = new OperationResult();
+        var comment = _commentRepository.Get(id);
+        if (comment == null)
+            return operation.Failed(ApplicationMessages.RecordNotFound);
 
-        public OperationResult Confirm(long id)
-        {
-            var operation = new OperationResult();
-            var comment = _commentRepository.Get(id);
-            if (comment == null)
-                return operation.Failed(ApplicationMessages.RecordNotFound);
+        comment.Confirm();
+        _commentRepository.SaveChanges();
+        return operation.Succedded();
+    }
 
-            comment.Confirm();
-            _commentRepository.SaveChanges();
-            return operation.Succedded();
-        }
-
-        public List<CommentViewModel> Search(CommentSearchModel searchModel)
-        {
-            return _commentRepository.Search(searchModel);
-        }
+    public List<CommentViewModel> Search(CommentSearchModel searchModel)
+    {
+        return _commentRepository.Search(searchModel);
     }
 }

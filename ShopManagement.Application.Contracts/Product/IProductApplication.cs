@@ -1,18 +1,13 @@
-﻿using _0_Framework.Application;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using _0_Framework.Application;
 
-namespace ShopManagement.Application.Contracts.Product
+namespace ShopManagement.Application.Contracts.Product;
+
+public interface IProductApplication
 {
-    public interface IProductApplication
-    {
-        OperationResult Create(CreateProduct command);
-        OperationResult Edit (EditProduct command);
-        EditProduct GetDetails (long id);
-        List<ProductViewModel> GetProducts();
-        List<ProductViewModel> Search(ProductSearchModel searchModel);
-    }
+    OperationResult Create(CreateProduct command);
+    OperationResult Edit(EditProduct command);
+    EditProduct GetDetails(long id);
+    List<ProductViewModel> GetProducts();
+    List<ProductViewModel> Search(ProductSearchModel searchModel);
 }

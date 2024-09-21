@@ -1,8 +1,7 @@
-﻿namespace _0_Framework.Application.ZarinPal
+﻿namespace _0_Framework.Application.ZarinPal;
+
+public class VerificationResponse
 {
-    public class VerificationResponse
-    {
-        public int Status { get; set; }
-        public long RefID { get; set; }
-    }
+    public int Status { get; set; }
+    public long RefID { get; set; }
 }

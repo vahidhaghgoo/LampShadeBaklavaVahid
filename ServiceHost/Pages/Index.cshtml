@@ -1,19 +1,19 @@
-﻿   @page
-   @model IndexModel
-   @{
-       ViewData["Title"] = "Home page";
-   }
- 
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
 @await Component.InvokeAsync("Slide")
- 
+
 @await Component.InvokeAsync("Slide2")
 
 
 @await Component.InvokeAsync("ProductCategory")
 @await Component.InvokeAsync("ProductCategoryWithProduct")
-   @await Component.InvokeAsync("LatestArrivals")
+@await Component.InvokeAsync("LatestArrivals")
 
-   <div class="banner-hover-area section-space">
+<div class="banner-hover-area section-space">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -128,7 +128,7 @@
 </div>
 <!--====================  End of feature logo area  ====================-->
 <!--====================  blog post slider area ====================-->
-   @await Component.InvokeAsync("LatestArticles")
+@await Component.InvokeAsync("LatestArticles")
 
 <!--====================  End of blog post slider area  ====================-->
 <!--====================  newsletter area ====================-->

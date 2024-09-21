@@ -21,13 +21,13 @@ namespace ShopManagement.Application
         private readonly ISmsService _smsService;
         private readonly IShopAccountAcl _shopAccountAcl;
 
-        public OrderApplication(IAuthHelper authHelper, IConfiguration configuration, IOrderRepository orderRepository,  
+        public OrderApplication(IAuthHelper authHelper, IConfiguration configuration, IOrderRepository orderRepository,
             IShopInventoryAcl shopInventoryAcl, ISmsService smsService, IShopAccountAcl shopAccountAcl)
         {
             _authHelper = authHelper;
             _configuration = configuration;
             _orderRepository = orderRepository;
-            
+
             _shopInventoryAcl = shopInventoryAcl;
             _smsService = smsService;
             _shopAccountAcl = shopAccountAcl;
@@ -37,11 +37,11 @@ namespace ShopManagement.Application
         {
             var currentAccountId = _authHelper.CurrentAccountId();
             var order = new Order(currentAccountId, cart.PaymentMethod, cart.TotalAmount, cart.DiscountAmount,
-                cart.PayAmount,cart.Address);
+                cart.PayAmount, cart.Address);
 
             foreach (var cartItem in cart.Items)
             {
-                var orderItem = new OrderItem(cartItem.Id, cartItem.Count, cartItem.UnitPrice, cartItem.DiscountRate,cartItem.Address);
+                var orderItem = new OrderItem(cartItem.Id, cartItem.Count, cartItem.UnitPrice, cartItem.DiscountRate, cartItem.Address);
                 order.AddItem(orderItem);
             }
 
@@ -67,7 +67,7 @@ namespace ShopManagement.Application
 
             var order = _orderRepository.Get(orderId);
             order.PaymentSucceeded(refId);
-            var symbol =_configuration.GetValue<string>("Symbol");
+            var symbol = _configuration.GetValue<string>("Symbol");
             var issueTrackingNo = CodeGenerator.Generate(symbol);
             order.SetIssueTrackingNo(issueTrackingNo);
             if (!_shopInventoryAcl.ReduceFromInventory(order.Items)) return "";
@@ -75,7 +75,7 @@ namespace ShopManagement.Application
             _orderRepository.SaveChanges();
             var account = _shopAccountAcl.GetAccountBy(order.AccountId);
             var customerMobile = _authHelper.CurrentAccountMobile();
-            _smsService.Send(account.mobile,$"{account.name} گرامی سفارش شما با شماره پیگیری {issueTrackingNo}با موفقیت پرداخت شد و ارسال خواهد شذ.");
+            _smsService.Send(account.mobile, $"{account.name} گرامی سفارش شما با شماره پیگیری {issueTrackingNo}با موفقیت پرداخت شد و ارسال خواهد شذ.");
             return issueTrackingNo;
         }
 

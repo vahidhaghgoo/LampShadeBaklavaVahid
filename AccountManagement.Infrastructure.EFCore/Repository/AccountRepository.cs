@@ -1,76 +1,74 @@
 ﻿using _0_Framework.Application;
 using _0_Framework.Infrastructure;
-using AccountManagement.Domain.AccountAgg;
 using AccountManagement.Application.Contracts.Account;
+using AccountManagement.Domain.AccountAgg;
 using Microsoft.EntityFrameworkCore;
 
-namespace AccountManagement.Infrastructure.EFCore.Repository
+namespace AccountManagement.Infrastructure.EFCore.Repository;
+
+public class AccountRepository : RepositoryBase<long, Account>, IAccountRepository
 {
-    public class AccountRepository : RepositoryBase<long, Account>, IAccountRepository
+    private readonly AccountContext _context;
+
+    public AccountRepository(AccountContext context) : base(context)
     {
-        private readonly AccountContext _context;
+        _context = context;
+    }
 
-        public AccountRepository(AccountContext context) : base(context)
+    public Account GetBy(string username)
+    {
+        return _context.Accounts.FirstOrDefault(x => x.Username == username);
+    }
+
+    public EditAccount GetDetails(long id)
+    {
+        return _context.Accounts.Select(x => new EditAccount
         {
-            _context = context;
-        }
+            Id = x.Id,
+            Fullname = x.Fullname,
+            Mobile = x.Mobile,
+            Email = x.Email,
+            RoleId = x.RoleId,
+            Username = x.Username
+        }).FirstOrDefault(x => x.Id == id);
+    }
 
-        public Account GetBy(string username)
+    public List<AccountViewModel> GetAccounts()
+    {
+        return _context.Accounts.Select(x => new AccountViewModel
         {
-            return _context.Accounts.FirstOrDefault(x => x.Username == username);
-        }
+            Id = x.Id,
+            Fullname = x.Fullname
+        }).ToList();
+    }
 
-        public EditAccount GetDetails(long id)
+    public List<AccountViewModel> Search(AccountSearchModel searchModel)
+    {
+        var query = _context.Accounts.Include(x => x.Role).Select(x => new AccountViewModel
         {
-            return _context.Accounts.Select(x => new EditAccount
-            {
-                Id = x.Id,
-                Fullname = x.Fullname,
-                Mobile = x.Mobile,
-                Email = x.Email,
-                RoleId = x.RoleId,
-                Username = x.Username
-            }).FirstOrDefault(x => x.Id == id);
-        }
+            Id = x.Id,
+            Fullname = x.Fullname,
+            Mobile = x.Mobile,
+            Email = x.Email,
+            ProfilePhoto = x.ProfilePhoto,
+            Role = x.Role.Name,
+            RoleId = x.RoleId,
+            Username = x.Username,
+            CreationDate = x.CreationDate.ToFarsi()
+        });
 
-        public List<AccountViewModel> GetAccounts()
-        {
-            return _context.Accounts.Select(x => new AccountViewModel
-            {
-                Id = x.Id,
-                Fullname = x.Fullname
-                
-            }).ToList();
-        }
+        if (!string.IsNullOrWhiteSpace(searchModel.Fullname))
+            query = query.Where(x => x.Fullname.Contains(searchModel.Fullname));
 
-        public List<AccountViewModel> Search(AccountSearchModel searchModel)
-        {
-            var query = _context.Accounts.Include(x => x.Role).Select(x => new AccountViewModel
-            {
-                Id = x.Id,
-                Fullname = x.Fullname,
-                Mobile = x.Mobile,
-                Email = x.Email,
-                ProfilePhoto = x.ProfilePhoto,
-                Role = x.Role.Name,
-                RoleId = x.RoleId,
-                Username = x.Username,
-                CreationDate = x.CreationDate.ToFarsi()
-            });
+        if (!string.IsNullOrWhiteSpace(searchModel.Username))
+            query = query.Where(x => x.Username.Contains(searchModel.Username));
 
-            if (!string.IsNullOrWhiteSpace(searchModel.Fullname))
-                query = query.Where(x => x.Fullname.Contains(searchModel.Fullname));
+        if (!string.IsNullOrWhiteSpace(searchModel.Mobile))
+            query = query.Where(x => x.Mobile.Contains(searchModel.Mobile));
 
-            if (!string.IsNullOrWhiteSpace(searchModel.Username))
-                query = query.Where(x => x.Username.Contains(searchModel.Username));
+        if (searchModel.RoleId > 0)
+            query = query.Where(x => x.RoleId == searchModel.RoleId);
 
-            if (!string.IsNullOrWhiteSpace(searchModel.Mobile))
-                query = query.Where(x => x.Mobile.Contains(searchModel.Mobile));
-
-            if (searchModel.RoleId > 0)
-                query = query.Where(x => x.RoleId == searchModel.RoleId);
-
-            return query.OrderByDescending(x => x.Id).ToList();
-        }
+        return query.OrderByDescending(x => x.Id).ToList();
     }
 }

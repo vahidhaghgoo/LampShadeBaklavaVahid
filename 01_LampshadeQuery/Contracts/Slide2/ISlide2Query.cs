@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace _01_LampshadeQuery.Contracts.Slide2
+namespace _01_LampshadeQuery.Contracts.Slide2;
+
+public interface ISlide2Query
 {
-    public interface ISlide2Query
-    {
-        List<Slide2QueryModel> GetSlides();
-    }
+    List<Slide2QueryModel> GetSlides();
 }

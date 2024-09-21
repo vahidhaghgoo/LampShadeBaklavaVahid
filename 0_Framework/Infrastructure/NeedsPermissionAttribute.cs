@@ -1,14 +1,13 @@
 ﻿using System;
 
-namespace _0_Framework.Infrastructure
-{
-    public class NeedsPermissionAttribute : Attribute
-    {
-        public int Permission { get; set; }
+namespace _0_Framework.Infrastructure;
 
-        public NeedsPermissionAttribute(int permission)
-        {
-            Permission = permission;
-        }
+public class NeedsPermissionAttribute : Attribute
+{
+    public NeedsPermissionAttribute(int permission)
+    {
+        Permission = permission;
     }
+
+    public int Permission { get; set; }
 }

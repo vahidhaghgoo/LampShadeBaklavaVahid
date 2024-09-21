@@ -1,5 +1,5 @@
 ﻿@page "{id}"
-@model ServiceHost.Pages.ArticleCategoryModel
+@model ArticleCategoryModel
 @{
     ViewData["Title"] = "مقالات";
 }
@@ -58,7 +58,9 @@
                                                             @article.ShortDescription
                                                         </p>
                                                         <a asp-page="./Article" asp-route-id="@article.Slug"
-                                                           class="blog-post-link">ادامه مطلب</a>
+                                                           class="blog-post-link">
+                                                            ادامه مطلب
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>

@@ -2,7 +2,7 @@
 @using _0_Framework.Application
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @using ShopManagement.Configuration.Permissions
-@model ServiceHost.Areas.Administration.Pages.Shop.Orders.IndexModel
+@model IndexModel
 @{
 }
 
@@ -66,7 +66,7 @@
                                 <th>تاریخ خرید</th>
                                 <th>آدرس</th>
                                 <th>وضعیت</th>
-                               <th>عملیات</th>
+                                <th>عملیات</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -92,7 +92,7 @@
                                         {
                                             <span class="text-success">پرداخت شده</span>
                                         }
-                                        @if(!item.IsCanceled && !item.IsPaid)
+                                        @if (!item.IsCanceled && !item.IsPaid)
                                         {
                                             <span class="text-warning">در انتظار پرداخت</span>
                                         }
@@ -108,7 +108,7 @@
                                             </a>
                                         }
                                         <a permission="@ShopPermissions.ItemsOrders" class="btn btn-primary pull-right m-rl-5"
-                                           href="#showmodal=@Url.Page("./Index", "Items", new {id = item.Id})">
+                                           href="#showmodal=@Url.Page("./Index", "Items", new { id = item.Id })">
                                             <i class="fa fa-id-card"></i> آیتم ها
                                         </a>
                                     </td>

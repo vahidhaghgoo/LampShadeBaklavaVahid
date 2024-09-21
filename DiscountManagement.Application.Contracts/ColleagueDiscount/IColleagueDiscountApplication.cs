@@ -1,19 +1,14 @@
-﻿using _0_Framework.Application;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using _0_Framework.Application;
 
-namespace DiscountManagement.Application.Contracts.ColleagueDiscount
+namespace DiscountManagement.Application.Contracts.ColleagueDiscount;
+
+public interface IColleagueDiscountApplication
 {
-    public interface IColleagueDiscountApplication
-    {
-        OperationResult Define(DefineColleagueDiscount command);
-        OperationResult Edit(EditColleagueDiscount command);
-        OperationResult Remove(long id);
-        OperationResult Restore(long id);
-        EditColleagueDiscount GetDetails(long id);
-        List<ColleagueDiscountViewModel> Search(ColleagueDiscountSearchModel searchModel);
-    }
+    OperationResult Define(DefineColleagueDiscount command);
+    OperationResult Edit(EditColleagueDiscount command);
+    OperationResult Remove(long id);
+    OperationResult Restore(long id);
+    EditColleagueDiscount GetDetails(long id);
+    List<ColleagueDiscountViewModel> Search(ColleagueDiscountSearchModel searchModel);
 }

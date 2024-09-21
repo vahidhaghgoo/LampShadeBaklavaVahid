@@ -8,19 +8,18 @@ using CommentManagement.Infrastructure.EFCore.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CommentManagement.Infrastructure.Configuration
+namespace CommentManagement.Infrastructure.Configuration;
+
+public class CommentManagementBootstrapper
 {
-    public class CommentManagementBootstrapper
+    public static void Configure(IServiceCollection services, string connectionString)
     {
-        public static void Configure(IServiceCollection services, string connectionString)
-        {
-            services.AddTransient<ICommentRepository, CommentRepository>();
-            services.AddTransient<ICommentApplication, CommentApplication>();
+        services.AddTransient<ICommentRepository, CommentRepository>();
+        services.AddTransient<ICommentApplication, CommentApplication>();
 
-            services.AddTransient<IPermissionExposer, CommentPermissionExposer>();
+        services.AddTransient<IPermissionExposer, CommentPermissionExposer>();
 
 
-            services.AddDbContext<CommentContext>(x => x.UseSqlServer(connectionString));
-        }
+        services.AddDbContext<CommentContext>(x => x.UseSqlServer(connectionString));
     }
 }

@@ -3,8 +3,8 @@
 
 <head>
 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     @if (ViewData["Title"] != null)
     {
         <title>@ViewData["Title"] - فروشگاه باقلوا</title>
@@ -13,10 +13,10 @@
     {
         <title>فروشگاه باقلوا</title>
     }
-    
-    <meta name="keywords" content="@ViewData["keywords"]" />
-    <meta name="description" content="@ViewData["metaDescription"]" />
-    
+
+    <meta name="keywords" content="@ViewData["keywords"]"/>
+    <meta name="description" content="@ViewData["metaDescription"]"/>
+
     <link rel="stylesheet" href="~/Theme/assets/css/vendors.css" type="text/css">
     <link rel="stylesheet" href="~/Theme/assets/css/style.css" type="text/css">
     <link rel="stylesheet" href="~/Theme/assets/css/Custom.css" type="text/css">
@@ -24,17 +24,17 @@
 </head>
 
 <body style="font-family: IranSans;">
-    <!--====================  header area ====================-->
-    @await Component.InvokeAsync("Menu")
-    <!--====================  End of header area  ====================-->
+<!--====================  header area ====================-->
+@await Component.InvokeAsync("Menu")
+<!--====================  End of header area  ====================-->
 
 
-    @RenderBody()
+@RenderBody()
 
-    <!--====================  footer area ====================-->
-    @await Component.InvokeAsync("Footer")
-   
-    <!--====================  End of footer area  ====================-->
+<!--====================  footer area ====================-->
+@await Component.InvokeAsync("Footer")
+
+<!--====================  End of footer area  ====================-->
 
 
 <div class="search-overlay" id="search-overlay">
@@ -52,7 +52,7 @@
 </div>
 
 
-    <!-- scroll to top  -->
+<!-- scroll to top  -->
 <div id="scroll-top">
     <span>بازگشت به بالا</span><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i>
 </div>

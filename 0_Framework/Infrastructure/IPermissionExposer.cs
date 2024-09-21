@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace _0_Framework.Infrastructure
+namespace _0_Framework.Infrastructure;
+
+public interface IPermissionExposer
 {
-    public interface IPermissionExposer
-    {
-        Dictionary<string, List<PermissionDto>> Expose();
-    }
+    Dictionary<string, List<PermissionDto>> Expose();
 }

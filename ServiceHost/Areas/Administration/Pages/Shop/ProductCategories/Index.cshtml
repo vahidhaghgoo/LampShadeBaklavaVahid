@@ -1,7 +1,7 @@
 ﻿@page
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @using ShopManagement.Configuration.Permissions
-@model ServiceHost.Areas.Administration.Pages.Shop.ProductCategories.IndexModel
+@model IndexModel
 @{
 }
 
@@ -39,7 +39,7 @@
     </div>
 </div>
 
-<div  class="row" id="ProductCategoriesDiv" permission="@ShopPermissions.ListProductCategories">
+<div class="row" id="ProductCategoriesDiv" permission="@ShopPermissions.ListProductCategories">
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -50,32 +50,32 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <table id="datatable" class="table table-striped table-bordered">
                             <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>عکس</th>
-                                    <th>نام</th>
-                                    <th>تاریخ تولید</th>
-                                    <th>عملیات</th>
-                                </tr>
+                            <tr>
+                                <th>#</th>
+                                <th>عکس</th>
+                                <th>نام</th>
+                                <th>تاریخ تولید</th>
+                                <th>عملیات</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model.ProductCategories)
-                                {
-                                    <tr>
-                                        <td>@item.Id</td>
-                                        <td>
-                                            <img src="~/ProductPictures/@item.Picture" style="width: 70px; height: 70px" />
-                                        </td>
-                                        <td>@item.Name</td>
-                                        <td>@item.CreationDate</td>
-                                        <td>
-                                            <a permission="@ShopPermissions.EditProductCategory" class="btn btn-warning pull-right m-rl-5"
-                                               href="#showmodal=@Url.Page("./Index", "Edit", new { id = item.Id})">
-                                                <i class="fa fa-edit"></i> ویرایش
-                                            </a>
-                                        </td>
-                                    </tr>
-                                }
+                            @foreach (var item in Model.ProductCategories)
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td>
+                                        <img src="~/ProductPictures/@item.Picture" style="width: 70px; height: 70px"/>
+                                    </td>
+                                    <td>@item.Name</td>
+                                    <td>@item.CreationDate</td>
+                                    <td>
+                                        <a permission="@ShopPermissions.EditProductCategory" class="btn btn-warning pull-right m-rl-5"
+                                           href="#showmodal=@Url.Page("./Index", "Edit", new { id = item.Id })">
+                                            <i class="fa fa-edit"></i> ویرایش
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
                             </tbody>
                         </table>
                     </div>
@@ -94,4 +94,4 @@
             $('#datatable').dataTable();
         });
     </script>
-} 
+}

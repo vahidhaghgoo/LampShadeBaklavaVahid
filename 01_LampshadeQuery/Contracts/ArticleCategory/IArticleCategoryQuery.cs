@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace _01_LampshadeQuery.Contracts.ArticleCategory
+namespace _01_LampshadeQuery.Contracts.ArticleCategory;
+
+public interface IArticleCategoryQuery
 {
-    public interface IArticleCategoryQuery
-    {
-        ArticleCategoryQueryModel GetArticleCategory(string slug);
-        List<ArticleCategoryQueryModel> GetArticleCategories();
-    }
+    ArticleCategoryQueryModel GetArticleCategory(string slug);
+    List<ArticleCategoryQueryModel> GetArticleCategories();
 }

@@ -1,5 +1,6 @@
-﻿@model _01_LampshadeQuery.MenuModel
-@inject _0_Framework.Application.IAuthHelper AuthHelper
+﻿@using _0_Framework.Application
+@model _01_LampshadeQuery.MenuModel
+@inject IAuthHelper AuthHelper
 
 <div class="header-area header-sticky">
     <div class="container">
@@ -31,8 +32,8 @@
                                 <li class="menu-item-has-children">
                                     <a>مقالات</a>
                                     <ul class="sub-menu">
-                                       
-                                         @foreach (var category in Model.ArticleCategories)
+
+                                        @foreach (var category in Model.ArticleCategories)
                                         {
                                             <li>
                                                 <a asp-page="./ArticleCategory" asp-route-id="@category.Slug">@category.Name</a>
@@ -49,7 +50,7 @@
                                         <a asp-page="/Account" asp-page-handler="Logout">خروج</a>
                                     </li>
                                 }
-                               else
+                                else
                                 {
                                     <li>
                                         <a asp-page="/Account">وورد / ثبت نام</a>
@@ -73,7 +74,7 @@
                                     </a>
                                     <div class="mini-cart" id="mini-cart">
                                         <div class="cart-items-wrapper ps-scroll" id="cart_items_wrapper">
-                                            
+
                                         </div>
                                         <div class="cart-buttons">
                                             <a asp-page="/Cart">مشاهده سبد خرید</a>

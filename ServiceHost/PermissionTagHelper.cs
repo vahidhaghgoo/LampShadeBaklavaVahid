@@ -2,36 +2,35 @@
 using _0_Framework.Application;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace ServiceHost
+namespace ServiceHost;
+
+[HtmlTargetElement(Attributes = "Permission")]
+public class PermissionTagHelper : TagHelper
 {
-    [HtmlTargetElement(Attributes = "Permission")]
-    public class PermissionTagHelper : TagHelper
+    private readonly IAuthHelper _authHelper;
+
+    public PermissionTagHelper(IAuthHelper authHelper)
     {
-        public int Permission { get; set; }
+        _authHelper = authHelper;
+    }
 
-        private readonly IAuthHelper _authHelper;
+    public int Permission { get; set; }
 
-        public PermissionTagHelper(IAuthHelper authHelper)
+    public override void Process(TagHelperContext context, TagHelperOutput output)
+    {
+        if (!_authHelper.IsAuthenticated())
         {
-            _authHelper = authHelper;
+            output.SuppressOutput();
+            return;
         }
 
-        public override void Process(TagHelperContext context, TagHelperOutput output)
+        var permissions = _authHelper.GetPermissions();
+        if (permissions.All(x => x != Permission))
         {
-            if (!_authHelper.IsAuthenticated())
-            {
-                output.SuppressOutput();
-                return;
-            }
-
-            var permissions = _authHelper.GetPermissions();
-            if (permissions.All(x => x != Permission))
-            {
-                output.SuppressOutput();
-                return;
-            }
-
-            base.Process(context, output);
+            output.SuppressOutput();
+            return;
         }
+
+        base.Process(context, output);
     }
 }

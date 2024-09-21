@@ -1,26 +1,25 @@
 ﻿using _0_Framework.Infrastructure;
 
-namespace InventoryManagement.Infrastructure.Configuration.Permissions
+namespace InventoryManagement.Infrastructure.Configuration.Permissions;
+
+public class InventoryPermissionExposer : IPermissionExposer
 {
-    public class InventoryPermissionExposer : IPermissionExposer
+    public Dictionary<string, List<PermissionDto>> Expose()
     {
-        public Dictionary<string, List<PermissionDto>> Expose()
+        return new Dictionary<string, List<PermissionDto>>
         {
-            return new Dictionary<string, List<PermissionDto>>
             {
+                "Inventory", new List<PermissionDto>
                 {
-                    "Inventory", new List<PermissionDto>
-                    {
-                        new PermissionDto(InventoryPermissions.ListInventory, "ListInventory"),
-                        new PermissionDto(InventoryPermissions.SearchInventory, "SearchInventory"),
-                        new PermissionDto(InventoryPermissions.CreateInventory, "CreateInventory"),
-                        new PermissionDto(InventoryPermissions.EditInventory, "EditInventory"),
-                        new PermissionDto(InventoryPermissions.Increase, "Increase"),
-                        new PermissionDto(InventoryPermissions.Reduce, "Reduce"),
-                        new PermissionDto(InventoryPermissions.OperationLog, "OperationLog")
-                    }
+                    new(InventoryPermissions.ListInventory, "ListInventory"),
+                    new(InventoryPermissions.SearchInventory, "SearchInventory"),
+                    new(InventoryPermissions.CreateInventory, "CreateInventory"),
+                    new(InventoryPermissions.EditInventory, "EditInventory"),
+                    new(InventoryPermissions.Increase, "Increase"),
+                    new(InventoryPermissions.Reduce, "Reduce"),
+                    new(InventoryPermissions.OperationLog, "OperationLog")
                 }
-            };
-        }
+            }
+        };
     }
 }

@@ -1,7 +1,6 @@
-﻿namespace DiscountManagement.Application.Contracts.CoustomerDiscount
+﻿namespace DiscountManagement.Application.Contracts.CoustomerDiscount;
+
+public class EditCustomerDiscount : DefineCustomerDiscount
 {
-    public class EditCustomerDiscount : DefineCustomerDiscount
-    {
-        public long Id { get; set; }
-    }
+    public long Id { get; set; }
 }

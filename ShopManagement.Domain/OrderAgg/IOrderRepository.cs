@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using _0_Framework.Domain;
 using ShopManagement.Application.Contracts.Order;
 
-namespace ShopManagement.Domain.OrderAgg
+namespace ShopManagement.Domain.OrderAgg;
+
+public interface IOrderRepository : IRepository<long, Order>
 {
-    public interface IOrderRepository : IRepository<long, Order>
-    {
-        double GetAmountBy(long id);
-        List<OrderItemViewModel> GetItems(long orderId);
-        List<OrderViewModel> Search(OrderSearchModel searchModel);
-    }
+    double GetAmountBy(long id);
+    List<OrderItemViewModel> GetItems(long orderId);
+    List<OrderViewModel> Search(OrderSearchModel searchModel);
 }

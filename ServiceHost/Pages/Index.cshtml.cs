@@ -1,26 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using _0_Framework.Application.Email;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using _0_Framework.Application.Email;
 
-namespace ServiceHost.Pages
+namespace ServiceHost.Pages;
+
+public class IndexModel : PageModel
 {
-    public class IndexModel : PageModel
+    private readonly IEmailService _emailService;
+
+    public IndexModel(IEmailService emailService)
     {
-        private readonly IEmailService _emailService;
+        _emailService = emailService;
+    }
 
-        public IndexModel(IEmailService emailService)
-        {
-            _emailService = emailService;
-        }
-
-        public void OnGet()
-        {
-            //_emailService.SendEmail("salam", "salam salam", "contact@atriya.com");
-        }
+    public void OnGet()
+    {
+        //_emailService.SendEmail("salam", "salam salam", "contact@atriya.com");
     }
 }

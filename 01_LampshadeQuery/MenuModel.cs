@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using _01_LampshadeQuery.Contracts.ArticleCategory;
 using _01_LampshadeQuery.Contracts.ProductCategory;
 
-namespace _01_LampshadeQuery
+namespace _01_LampshadeQuery;
+
+public class MenuModel
 {
-    public class MenuModel
-    {
-        public List<ArticleCategoryQueryModel> ArticleCategories { get; set; }
-        public List<ProductCategoryQueryModel> ProductCategories { get; set; }
-    }
+    public List<ArticleCategoryQueryModel> ArticleCategories { get; set; }
+    public List<ProductCategoryQueryModel> ProductCategories { get; set; }
 }

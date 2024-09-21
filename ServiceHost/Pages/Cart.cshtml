@@ -1,6 +1,6 @@
 ﻿@page
 @using _0_Framework.Application
-@model ServiceHost.Pages.CartModel
+@model CartModel
 @{
     ViewData["Title"] = "سبد خرید";
 }
@@ -53,7 +53,7 @@
                                     <th class="pro-quantity">تعداد</th>
                                     <th class="pro-subtotal">قیمت کل</th>
                                     <th class="pro-remove">حذف</th>
-                                    
+
 
                                 </tr>
                                 </thead>
@@ -84,18 +84,17 @@
                                             <a asp-page-handler="RemoveFromCart" asp-route-id="@item.Id">
                                                 <i class="fa fa-trash-o"></i>
                                             </a>
-                                        </td>                             
+                                        </td>
                                     </tr>
-
                                 }
 
                                 </tbody>
                             </table>
                         </div>
-                         <div class="col-md-6 col-12 mb-20">
-                                                <label>آدرس</label>
-                                                <input type="text" name="address" placeholder="آدرس" style="width:400px;">
-                                            </div>
+                        <div class="col-md-6 col-12 mb-20">
+                            <label>آدرس</label>
+                            <input type="text" name="address" placeholder="آدرس" style="width:400px;">
+                        </div>
                         <div class="row">
                             <div class="col-lg-6 col-12 d-flex">
                                 <div class="cart-summary">

@@ -1,27 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>_0_Framework</RootNamespace>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<RootNamespace>_0_Framework</RootNamespace>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="MailKit" Version="3.4.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.12" />
-    <PackageReference Include="MimeKit" Version="3.4.3" />
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.1" />
-	  <PackageReference Include="RestSharp" Version="106.11.4" />
-	  <PackageReference Include="SmsIrRestfulNetCore" Version="1.1.4" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="MailKit" Version="4.7.1.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
+		<PackageReference Include="MimeKit" Version="4.7.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="RestSharp" Version="112.0.0" />
+		<PackageReference Include="SmsIrRestfulNetCore" Version="1.1.4" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="Microsoft.AspNetCore.Authentication.Abstractions">
-      <HintPath>C:\Program Files\dotnet\packs\Microsoft.AspNetCore.App.Ref\6.0.0\ref\net6.0\Microsoft.AspNetCore.Authentication.Abstractions.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+	<ItemGroup>
+		<Reference Include="Microsoft.AspNetCore.Authentication.Abstractions">
+			<HintPath>C:\Program Files\dotnet\packs\Microsoft.AspNetCore.App.Ref\6.0.0\ref\net6.0\Microsoft.AspNetCore.Authentication.Abstractions.dll</HintPath>
+		</Reference>
+	</ItemGroup>
 
 </Project>

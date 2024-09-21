@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using _0_Framework.Application;
+﻿using _0_Framework.Application;
 
-namespace AccountManagement.Application.Contracts.Role
+namespace AccountManagement.Application.Contracts.Role;
+
+public interface IRoleApplication
 {
-    public interface IRoleApplication
-    {
-        OperationResult Create(CreateRole command);
-        OperationResult Edit(EditRole command);
-        List<RoleViewModel> List();
-        EditRole GetDetails(long id);
-    }
+    OperationResult Create(CreateRole command);
+    OperationResult Edit(EditRole command);
+    List<RoleViewModel> List();
+    EditRole GetDetails(long id);
 }

@@ -1,7 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using _0_Framework.Infrastructure;
 using DiscountManagement.Application.Contracts.CoustomerDiscount;
 using DiscountManagement.Configuration.Permissions;
@@ -9,66 +6,60 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ShopManagement.Application.Contracts.Product;
-using ShopManagement.Application.Contracts.ProductCategory;
 
-namespace ServiceHost.Areas.Administration.Pages.Discounts.CustomerDiscounts
+namespace ServiceHost.Areas.Administration.Pages.Discounts.CustomerDiscounts;
+
+public class IndexModel : PageModel
 {
-    public class IndexModel : PageModel
+    private readonly ICustomerDiscountApplication _customerDiscountApplication;
+
+    private readonly IProductApplication _productApplication;
+    public List<CustomerDiscountViewModel> CustomerDiscounts;
+    public SelectList Products;
+    public CustomerDiscountSearchModel SearchModel;
+
+    public IndexModel(IProductApplication productApplication, ICustomerDiscountApplication customerDiscountApplication)
     {
-        [TempData]
-        public string Message { get; set; }
-        public CustomerDiscountSearchModel SearchModel;
-        public List<CustomerDiscountViewModel> CustomerDiscounts;
-        public SelectList Products;
-
-        private readonly IProductApplication _productApplication;
-        private readonly ICustomerDiscountApplication _customerDiscountApplication;
-
-        public IndexModel(IProductApplication productApplication, ICustomerDiscountApplication customerDiscountApplication)
-        {
-            _productApplication = productApplication;
-            _customerDiscountApplication = customerDiscountApplication;
-        }
-
-        [NeedsPermission(DiscountPermissions.ListCustomerDiscounts)]
-
-        public void OnGet(CustomerDiscountSearchModel searchModel)
-        {
-            Products = new SelectList(_productApplication.GetProducts(), "Id", "Name");
-            CustomerDiscounts = _customerDiscountApplication.Search(searchModel);
-        }
-
-        public IActionResult OnGetCreate()
-        {
-            var command = new DefineCustomerDiscount
-            {
-                Products = _productApplication.GetProducts()
-            };
-        return Partial("./Create",command);
-
+        _productApplication = productApplication;
+        _customerDiscountApplication = customerDiscountApplication;
     }
 
-        [NeedsPermission(DiscountPermissions.CreateCustomerDiscounts)]
+    [TempData] public string Message { get; set; }
 
-        public JsonResult OnPostCreate(DefineCustomerDiscount command)
+    [NeedsPermission(DiscountPermissions.ListCustomerDiscounts)]
+    public void OnGet(CustomerDiscountSearchModel searchModel)
+    {
+        Products = new SelectList(_productApplication.GetProducts(), "Id", "Name");
+        CustomerDiscounts = _customerDiscountApplication.Search(searchModel);
+    }
+
+    public IActionResult OnGetCreate()
+    {
+        var command = new DefineCustomerDiscount
         {
-            var result = _customerDiscountApplication.Define(command);
-            return new JsonResult(result);
-        }
+            Products = _productApplication.GetProducts()
+        };
+        return Partial("./Create", command);
+    }
 
-        public IActionResult OnGetEdit(long id)
-        {
-            var customerDiscount = _customerDiscountApplication.GetDetails(id);
-            customerDiscount.Products = _productApplication.GetProducts();
-            return Partial("Edit", customerDiscount);
-        }
+    [NeedsPermission(DiscountPermissions.CreateCustomerDiscounts)]
+    public JsonResult OnPostCreate(DefineCustomerDiscount command)
+    {
+        var result = _customerDiscountApplication.Define(command);
+        return new JsonResult(result);
+    }
 
-        [NeedsPermission(DiscountPermissions.EditCustomerDiscounts)]
+    public IActionResult OnGetEdit(long id)
+    {
+        var customerDiscount = _customerDiscountApplication.GetDetails(id);
+        customerDiscount.Products = _productApplication.GetProducts();
+        return Partial("Edit", customerDiscount);
+    }
 
-        public JsonResult OnPostEdit(EditCustomerDiscount command)
-        {
-            var result = _customerDiscountApplication.Edit(command);
-            return new JsonResult(result);
-        }
+    [NeedsPermission(DiscountPermissions.EditCustomerDiscounts)]
+    public JsonResult OnPostEdit(EditCustomerDiscount command)
+    {
+        var result = _customerDiscountApplication.Edit(command);
+        return new JsonResult(result);
     }
 }

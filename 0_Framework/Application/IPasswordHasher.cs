@@ -1,8 +1,7 @@
-﻿namespace _0_Framework.Application
+﻿namespace _0_Framework.Application;
+
+public interface IPasswordHasher
 {
-    public interface IPasswordHasher
-    {
-        string Hash(string password);
-        (bool Verified, bool NeedsUpgrade) Check(string hash, string password);
-    }
+    string Hash(string password);
+    (bool Verified, bool NeedsUpgrade) Check(string hash, string password);
 }

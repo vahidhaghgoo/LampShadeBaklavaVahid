@@ -1,37 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using _0_Framework.Infrastructure;
+﻿using _0_Framework.Infrastructure;
 
-namespace BlogManagement.Infrastructure.Configuration.Permissions
+namespace BlogManagement.Infrastructure.Configuration.Permissions;
+
+public class BlogPermissionExposer : IPermissionExposer
 {
-    public class BlogPermissionExposer : IPermissionExposer
+    public Dictionary<string, List<PermissionDto>> Expose()
     {
-        public Dictionary<string, List<PermissionDto>> Expose()
+        return new Dictionary<string, List<PermissionDto>>
         {
-            return new Dictionary<string, List<PermissionDto>>
             {
+                "ArticleCategories", new List<PermissionDto>
                 {
-                    "ArticleCategories", new List<PermissionDto>
-                    {
-                        new PermissionDto(BlogPermissions.ListArticleCategories, "ListArticleCategories"),
-                        new PermissionDto(BlogPermissions.SearchArticleCategories, "SearchArticleCategories"),
-                        new PermissionDto(BlogPermissions.CreateArticleCategories, "CreateArticleCategories"),
-                        new PermissionDto(BlogPermissions.EditArticleCategories, "EditArticleCategories"),
-                    }
-                },
-                {
-                    "Articles", new List<PermissionDto>
-                    {
-                        new PermissionDto(BlogPermissions.ListArticles, "ListArticles"),
-                        new PermissionDto(BlogPermissions.SearchArticles, "SearchArticles"),
-                        new PermissionDto(BlogPermissions.CreateArticles, "CreateArticles"),
-                        new PermissionDto(BlogPermissions.EditArticles, "EditArticles"),
-                    }
+                    new(BlogPermissions.ListArticleCategories, "ListArticleCategories"),
+                    new(BlogPermissions.SearchArticleCategories, "SearchArticleCategories"),
+                    new(BlogPermissions.CreateArticleCategories, "CreateArticleCategories"),
+                    new(BlogPermissions.EditArticleCategories, "EditArticleCategories")
                 }
-            };
-        }
+            },
+            {
+                "Articles", new List<PermissionDto>
+                {
+                    new(BlogPermissions.ListArticles, "ListArticles"),
+                    new(BlogPermissions.SearchArticles, "SearchArticles"),
+                    new(BlogPermissions.CreateArticles, "CreateArticles"),
+                    new(BlogPermissions.EditArticles, "EditArticles")
+                }
+            }
+        };
     }
 }

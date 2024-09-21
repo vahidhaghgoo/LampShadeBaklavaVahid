@@ -10,20 +10,18 @@ using InventoryMangement.Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace InventoryManagement.Infrastructure.Configuration
+namespace InventoryManagement.Infrastructure.Configuration;
+
+public class InventoryManagementBootstrapper
 {
-    public class InventoryManagementBootstrapper
+    public static void Configure(IServiceCollection services, string connectionString)
     {
-        public static void Configure(IServiceCollection services , string connectionString)
-        {
-            services.AddTransient<IInventoryRepository, InventoryRepository>();
-            services.AddTransient<IInventoryApplication, InventoryApplication>();
-            services.AddTransient<IPermissionExposer, InventoryPermissionExposer>();
-            services.AddTransient<IInventoryQuery, InventoryQuery>();
+        services.AddTransient<IInventoryRepository, InventoryRepository>();
+        services.AddTransient<IInventoryApplication, InventoryApplication>();
+        services.AddTransient<IPermissionExposer, InventoryPermissionExposer>();
+        services.AddTransient<IInventoryQuery, InventoryQuery>();
 
 
-            services.AddDbContext<InventoryContext>(x => x.UseSqlServer(connectionString));
-        }
-
+        services.AddDbContext<InventoryContext>(x => x.UseSqlServer(connectionString));
     }
 }

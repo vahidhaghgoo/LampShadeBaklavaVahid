@@ -1,24 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ShopManagement.Application.Contracts.Order;
+﻿using ShopManagement.Application.Contracts.Order;
 
-namespace ShopManagement.Application
+namespace ShopManagement.Application;
+
+public class CartService : ICartService
 {
-    public class CartService : ICartService
+    public Cart Cart { get; set; }
+
+    public Cart Get()
     {
-        public Cart Cart { get; set; }
+        return Cart;
+    }
 
-        public Cart Get()
-        {
-            return Cart;
-        }
-
-        public void Set(Cart cart)
-        {
-            Cart = cart;
-        }
+    public void Set(Cart cart)
+    {
+        Cart = cart;
     }
 }

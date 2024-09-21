@@ -48,11 +48,11 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <label asp-for="RoleId" class="control-label">نقش</label>
-                     <select class="form-control" asp-for="RoleId"
+                    <select class="form-control" asp-for="RoleId"
                             asp-items='new SelectList(Model.Roles, "Id", "Name")'>
                         <option value="0">گروه محصول</option>
                     </select>
-                   
+
                     <span asp-validation-for="RoleId" class="error"></span>
                 </div>
             </div>
@@ -66,7 +66,7 @@
                 </div>
             </div>
         </div>
-        <input type="hidden" asp-for="Id" value="@Model.Id" />
+        <input type="hidden" asp-for="Id" value="@Model.Id"/>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>

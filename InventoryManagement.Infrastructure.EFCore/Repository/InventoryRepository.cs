@@ -1,97 +1,86 @@
 ﻿using _0_Framework.Application;
 using _0_Framework.Infrastructure;
+using AccountManagement.Infrastructure.EFCore;
 using InventoryManagement.Application.Contract.Inventory;
 using InventoryManagement.Domain.InventoryAgg;
 using InventoryMangement.Infrastructure.EFCore;
-using Microsoft.EntityFrameworkCore;
 using ShopManagement.Infrastructure.EFCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AccountManagement.Infrastructure.EFCore;
 
-namespace InventoryManagement.Infrastructure.EFCore.Repository
+namespace InventoryManagement.Infrastructure.EFCore.Repository;
+
+public class InventoryRepository : RepositoryBase<long, Inventory>, IInventoryRepository
 {
-    public class InventoryRepository : RepositoryBase<long, Inventory>, IInventoryRepository
+    private readonly AccountContext _accountContext;
+
+    private readonly InventoryContext _inventoryContext;
+
+    private readonly ShopContext _shopContext;
+
+    public InventoryRepository(InventoryContext inventoryContext, ShopContext shopContext,
+        AccountContext accountContext) : base(inventoryContext)
     {
-        private readonly AccountContext _accountContext;
+        _shopContext = shopContext;
+        _accountContext = accountContext;
+        _inventoryContext = inventoryContext;
+    }
 
-        private readonly ShopContext _shopContext;
+    public Inventory GetBy(long productId)
+    {
+        return _inventoryContext.Inventory.FirstOrDefault(x => x.ProductId == productId);
+    }
 
-        private readonly InventoryContext _inventoryContext;
-
-        public InventoryRepository(InventoryContext inventoryContext, ShopContext shopContext, AccountContext accountContext) : base(inventoryContext)
+    public EditInventory GetDetails(long id)
+    {
+        return _inventoryContext.Inventory.Select(x => new EditInventory
         {
-            _shopContext = shopContext;
-            _accountContext = accountContext;
-            _inventoryContext = inventoryContext;
-        }
+            Id = x.Id,
+            ProductId = x.ProductId,
+            UnitPrice = x.UnitPrice
+        }).FirstOrDefault(x => x.Id == id);
+    }
 
-        public Inventory GetBy(long productId)
+    public List<InventoryOperationViewModel> GetOperationLog(long inventoryId)
+    {
+        var accounts = _accountContext.Accounts.Select(x => new { x.Id, x.Fullname }).ToList();
+        var inventory = _inventoryContext.Inventory.FirstOrDefault(x => x.Id == inventoryId);
+        var operations = inventory.Operations.Select(x => new InventoryOperationViewModel
         {
-            return _inventoryContext.Inventory.FirstOrDefault(x => x.ProductId == productId);
-        }
+            Id = x.Id,
+            Count = x.Count,
+            CurrentCount = x.CurrentCount,
+            Description = x.Description,
+            Operation = x.Operation,
+            OperationDate = x.OperationDate.ToFarsi(),
+            OperatorId = x.OperatorId,
+            OrderId = x.OrderId
+        }).OrderByDescending(x => x.Id).ToList();
+        foreach (var operation in operations)
+            operation.Operator = accounts.FirstOrDefault(x => x.Id == operation.OperatorId)?.Fullname;
 
-        public EditInventory GetDetails(long id)
+        return operations;
+    }
+
+    public List<InventoryViewModel> Search(InventorySearchModel searchModel)
+    {
+        var products = _shopContext.Products.Select(x => new { x.Id, x.Name }).ToList();
+        var query = _inventoryContext.Inventory.Select(x => new InventoryViewModel
         {
-            return _inventoryContext.Inventory.Select(x => new EditInventory
-            {
-                Id = x.Id,
-                ProductId = x.ProductId,
-                UnitPrice = x.UnitPrice
-            }).FirstOrDefault(x => x.Id == id);
-        }
+            Id = x.Id,
+            UnitPrice = x.UnitPrice,
+            InStock = x.InStock,
+            ProductId = x.ProductId,
+            CurrentCount = x.CalculateCurrentCount(),
+            CreationDate = x.CreationDate.ToFarsi()
+        });
+        if (searchModel.ProductId > 0)
+            query = query.Where(x => x.ProductId == searchModel.ProductId);
+        if (searchModel.InStock)
+            query = query.Where(x => !x.InStock);
+        var inventory = query.OrderByDescending(x => x.Id).ToList();
 
-        public List<InventoryOperationViewModel> GetOperationLog(long inventoryId)
-        {
-            var accounts = _accountContext.Accounts.Select(x => new { x.Id, x.Fullname }).ToList();
-            var inventory = _inventoryContext.Inventory.FirstOrDefault(x => x.Id == inventoryId);
-            var operations = inventory.Operations.Select(x => new InventoryOperationViewModel
-            {
-                Id = x.Id,
-                Count = x.Count,
-                CurrentCount = x.CurrentCount,
-                Description = x.Description,
-                Operation=x.Operation,
-                OperationDate=x.OperationDate.ToFarsi(),
-                OperatorId=x.OperatorId,
-                OrderId=x.OrderId
-                
+        inventory.ForEach(item =>
+            item.Product = products.FirstOrDefault(x => x.Id == item.ProductId)?.Name);
 
-            }).OrderByDescending(x => x.Id).ToList();
-            foreach (var operation in operations)
-            {
-                operation.Operator = accounts.FirstOrDefault(x => x.Id == operation.OperatorId)?.Fullname;
-            }
-
-            return operations;
-        }
-
-        public List<InventoryViewModel> Search(InventorySearchModel searchModel)
-        {
-            var products = _shopContext.Products.Select(x => new {x.Id, x.Name }).ToList();
-            var query = _inventoryContext.Inventory.Select(x => new InventoryViewModel
-            {
-                Id = x.Id,
-                UnitPrice = x.UnitPrice,
-                InStock = x.InStock,
-                ProductId = x.ProductId,
-                CurrentCount = x.CalculateCurrentCount(),
-                CreationDate = x.CreationDate.ToFarsi()
-            });
-            if(searchModel.ProductId>0)
-                query = query.Where(x => x.ProductId==searchModel.ProductId);
-            if(searchModel.InStock)
-                query = query.Where(x => !x.InStock);
-            var inventory = query.OrderByDescending(x =>x.Id).ToList();
-
-            inventory.ForEach(item =>
-            
-                 item.Product = products.FirstOrDefault(x => x.Id == item.ProductId)?.Name);
-           
-            return inventory;
-        }
+        return inventory;
     }
 }

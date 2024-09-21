@@ -1,61 +1,62 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using _0_Framework.Domain;
 
-namespace ShopManagement.Domain.OrderAgg
+namespace ShopManagement.Domain.OrderAgg;
+
+public class Order : EntityBase
 {
-    public class Order : EntityBase
+    public Order(long accountId, int paymentMethod, double totalAmount, double discountAmount, double payAmount,
+        string address)
     {
-        public long AccountId { get; private set; }
-        public int PaymentMethod { get; private set; }
-        public double TotalAmount { get; private set; }
-        public double DiscountAmount { get; private set; }
-        public double PayAmount { get; private set; }
-        public bool IsPaid { get; private set; }
-        public bool IsCanceled { get; private set; }
-        public string IssueTrackingNo { get; private set; }
-        public long RefId { get; private set; }
-        public string Address { get; private set; }
-        public List<OrderItem> Items { get; private set; }
+        AccountId = accountId;
+        TotalAmount = totalAmount;
+        DiscountAmount = discountAmount;
+        PayAmount = payAmount;
+        PaymentMethod = paymentMethod;
+        IsPaid = false;
+        IsCanceled = false;
+        RefId = 0;
+        Address = address;
+        Items = new List<OrderItem>();
+    }
 
-        public Order(long accountId, int paymentMethod, double totalAmount, double discountAmount, double payAmount, string address)
-        {
-            AccountId = accountId;
-            TotalAmount = totalAmount;
-            DiscountAmount = discountAmount;
-            PayAmount = payAmount;
-            PaymentMethod = paymentMethod;
-            IsPaid = false;
-            IsCanceled = false;
-            RefId = 0;
-            Address = address;
-            Items = new List<OrderItem>();
-        }
+    protected Order()
+    {
 
-        public void PaymentSucceeded(long refId)
-        {
-            IsPaid = true;
+    }
 
-            if (refId != 0)
-                RefId = refId;
-        }
+    public long AccountId { get; private set; }
+    public int PaymentMethod { get; private set; }
+    public double TotalAmount { get; private set; }
+    public double DiscountAmount { get; private set; }
+    public double PayAmount { get; private set; }
+    public bool IsPaid { get; private set; }
+    public bool IsCanceled { get; private set; }
+    public string IssueTrackingNo { get; private set; }
+    public long RefId { get; private set; }
+    public string Address { get; private set; }
+    public List<OrderItem> Items { get; }
 
-        public void Cancel()
-        {
-            IsCanceled = true;
-        }
+    public void PaymentSucceeded(long refId)
+    {
+        IsPaid = true;
 
-        public void SetIssueTrackingNo(string number)
-        {
-            IssueTrackingNo = number;
-        }
+        if (refId != 0)
+            RefId = refId;
+    }
 
-        public void AddItem(OrderItem item)
-        {
-            Items.Add(item);
-        }
+    public void Cancel()
+    {
+        IsCanceled = true;
+    }
+
+    public void SetIssueTrackingNo(string number)
+    {
+        IssueTrackingNo = number;
+    }
+
+    public void AddItem(OrderItem item)
+    {
+        Items.Add(item);
     }
 }

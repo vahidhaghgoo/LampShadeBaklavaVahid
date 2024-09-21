@@ -27,39 +27,37 @@ using ShopManagement.Infrastructure.EFCore;
 using ShopManagement.Infrastructure.EFCore.Repository;
 using ShopManagement.Infrastructure.InventoryAcl;
 
-namespace ShopManagement.Configuration
+namespace ShopManagement.Configuration;
+
+public class ShopManagementBootstrapper
 {
-   public class ShopManagementBootstrapper
+    public static void Configure(IServiceCollection services, string connectionString)
     {
-        public static void Configure(IServiceCollection services, string connectionString)
-        {
-            services.AddTransient<IProductCategoryApplication, ProductCategoryApplication>();
-            services.AddTransient<IProductCategoryRepository, _productCategoryRepository>();
-            services.AddTransient<IProductApplication, ProductApplication>();
-            services.AddTransient<IProductRepository, ProductRepository>();
-            services.AddTransient<IProductPictureApplication, ProductPictureApplication>();
+        services.AddTransient<IProductCategoryApplication, ProductCategoryApplication>();
+        services.AddTransient<IProductCategoryRepository, _productCategoryRepository>();
+        services.AddTransient<IProductApplication, ProductApplication>();
+        services.AddTransient<IProductRepository, ProductRepository>();
+        services.AddTransient<IProductPictureApplication, ProductPictureApplication>();
 
-            services.AddTransient<IProductPictureRepository,ProductPictureRepository>();
-            services.AddTransient<ISlideApplication, SlideApplication>();
-            services.AddTransient<ISlideRepository, SlideRepository>();
-            services.AddTransient<ISlideQuery, SlideQuery>();
-            services.AddTransient<ISlide2Application, Slide2Application>();
-            services.AddTransient<ISlide2Repository, Slide2Repository>();
-            services.AddTransient<ISlide2Query, Slide2Query>();
-            services.AddTransient<IOrderRepository, OrderRepository>();
-            services.AddTransient<IOrderApplication, OrderApplication>();
-            services.AddSingleton<ICartService, CartService>();
-            services.AddTransient<IShopInventoryAcl, ShopInventoryAcl>();
-            services.AddTransient<IShopAccountAcl, ShopAccountAcl>();
+        services.AddTransient<IProductPictureRepository, ProductPictureRepository>();
+        services.AddTransient<ISlideApplication, SlideApplication>();
+        services.AddTransient<ISlideRepository, SlideRepository>();
+        services.AddTransient<ISlideQuery, SlideQuery>();
+        services.AddTransient<ISlide2Application, Slide2Application>();
+        services.AddTransient<ISlide2Repository, Slide2Repository>();
+        services.AddTransient<ISlide2Query, Slide2Query>();
+        services.AddTransient<IOrderRepository, OrderRepository>();
+        services.AddTransient<IOrderApplication, OrderApplication>();
+        services.AddSingleton<ICartService, CartService>();
+        services.AddTransient<IShopInventoryAcl, ShopInventoryAcl>();
+        services.AddTransient<IShopAccountAcl, ShopAccountAcl>();
 
 
+        services.AddTransient<IProductCategoryQuery, ProductCategoryQuery>();
+        services.AddTransient<IProductQuery, ProductQuery>();
+        services.AddTransient<ICartCalculatorService, CartCalculatorService>();
+        services.AddTransient<IPermissionExposer, ShopPermissionExposer>();
 
-            services.AddTransient<IProductCategoryQuery, ProductCategoryQuery>();
-            services.AddTransient<IProductQuery, ProductQuery>();
-            services.AddTransient<ICartCalculatorService, CartCalculatorService>();
-            services.AddTransient<IPermissionExposer, ShopPermissionExposer>();
-
-            services.AddDbContext<ShopContext>(x => x.UseSqlServer(connectionString));
-        }
+        services.AddDbContext<ShopContext>(x => x.UseSqlServer(connectionString));
     }
 }

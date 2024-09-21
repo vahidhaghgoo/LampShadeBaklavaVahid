@@ -1,8 +1,7 @@
-﻿namespace _0_Framework.Application.ZarinPal
+﻿namespace _0_Framework.Application.ZarinPal;
+
+public class PaymentResponse
 {
-    public class PaymentResponse
-    {
-        public int Status { get; set; }
-        public string Authority { get; set; }
-    }
+    public int Status { get; set; }
+    public string Authority { get; set; }
 }

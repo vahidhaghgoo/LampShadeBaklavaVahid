@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using ShopManagement.Domain.OrderAgg;
 
-namespace ShopManagement.Domain.Services
+namespace ShopManagement.Domain.Services;
+
+public interface IShopInventoryAcl
 {
-    public interface IShopInventoryAcl
-    {
-        bool ReduceFromInventory(List<OrderItem> items);
-    }
+    bool ReduceFromInventory(List<OrderItem> items);
 }

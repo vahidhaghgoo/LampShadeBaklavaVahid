@@ -1,7 +1,6 @@
-﻿namespace _0_Framework.Application.Sms
+﻿namespace _0_Framework.Application.Sms;
+
+public interface ISmsService
 {
-    public interface ISmsService
-    {
-        void Send(string number, string message);
-    }
+    void Send(string number, string message);
 }

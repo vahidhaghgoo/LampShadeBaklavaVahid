@@ -1,10 +1,9 @@
 ﻿using _0_Framework.Domain;
 using CommentManagement.Application.Contracts.Comment;
 
-namespace CommentManagement.Domain.CommentAgg
+namespace CommentManagement.Domain.CommentAgg;
+
+public interface ICommentRepository : IRepository<long, Comment>
 {
-    public interface ICommentRepository : IRepository<long, Comment>
-    {
-        List<CommentViewModel> Search(CommentSearchModel searchModel);
-    }
+    List<CommentViewModel> Search(CommentSearchModel searchModel);
 }
